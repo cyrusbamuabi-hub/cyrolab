@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CyroLab — Studio multidisciplinaire</title>
+<meta name="description" content="CyroLab : design graphique, conception web, conception d'applications, télécommunication et gestion de projet — un seul studio, cinq expertises coordonnées.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M27 9 A13 13 0 1 0 27 31' fill='none' stroke='%23e7e9ee' stroke-width='2.6' stroke-linecap='round'/%3E%3Ccircle cx='31' cy='20' r='3.6' fill='%23e7e9ee'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.0/feather.min.js"></script>
+<style>
+/* ================= RESET & BASE ================= */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
+img,svg{display:block;max-width:100%;}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;}
+a{color:inherit;text-decoration:none;}
+ul{list-style:none;}
+input,textarea,select{font:inherit;color:inherit;background:none;border:0;width:100%;}
+
+/* ================= TOKENS ================= */
+:root{
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'Inter',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+
+  --grenat:#b2305c;     --grenat-soft:rgba(178,48,92,.16);    --grenat-glow:rgba(178,48,92,.45);
+  --emeraude:#0e8a68;   --emeraude-soft:rgba(14,138,104,.16); --emeraude-glow:rgba(14,138,104,.45);
+  --cobalt:#3461d6;     --cobalt-soft:rgba(52,97,214,.16);    --cobalt-glow:rgba(52,97,214,.45);
+  --lagon:#0fa3b1;      --lagon-soft:rgba(15,163,177,.16);    --lagon-glow:rgba(15,163,177,.45);
+  --bronze:#c0913a;     --bronze-soft:rgba(192,145,58,.18);   --bronze-glow:rgba(192,145,58,.45);
+  --whatsapp:#25D366;
+
+  --r-sm:10px; --r-md:16px; --r-lg:24px; --r-pill:999px;
+  --sp-1:.5rem; --sp-2:1rem; --sp-3:1.5rem; --sp-4:2.5rem; --sp-5:4.5rem; --sp-6:7rem;
+
+  --fs-display:clamp(2.5rem,5.4vw,4.4rem);
+  --fs-h2:clamp(2rem,3.6vw,3rem);
+  --fs-h3:1.2rem;
+  --ease:cubic-bezier(.16,.8,.24,1);
+  --cursor-color:var(--signal);
+}
+[data-theme="dark"]{
+  --bg:#07080a; --bg-1:#0b0d10; --bg-2:#101317;
+  --text:#f1f2f4; --text-soft:rgba(241,242,244,.66); --text-faint:rgba(241,242,244,.4);
+  --border:rgba(255,255,255,.09); --border-strong:rgba(255,255,255,.16);
+  --glass-bg:rgba(255,255,255,.045); --glass-bg-strong:rgba(255,255,255,.075);
+  --glass-border:rgba(255,255,255,.11);
+  --shadow:0 20px 60px rgba(0,0,0,.45);
+  --ambient-op:.16;
+  --header-bg:rgba(7,8,10,.55);
+  --signal:#cfd8e3;
+  --neutral-ic-bg:rgba(207,216,227,.12);
+  --cursor-op:.32; --cursor-blend:plus-lighter;
+}
+[data-theme="light"]{
+  --bg:#f5f3ee; --bg-1:#eeebe3; --bg-2:#e7e3d9;
+  --text:#15161a; --text-soft:rgba(21,22,26,.66); --text-faint:rgba(21,22,26,.45);
+  --border:rgba(21,22,26,.1); --border-strong:rgba(21,22,26,.18);
+  --glass-bg:rgba(255,255,255,.5); --glass-bg-strong:rgba(255,255,255,.7);
+  --glass-border:rgba(21,22,26,.09);
+  --shadow:0 20px 50px rgba(20,20,15,.12);
+  --ambient-op:.13;
+  --header-bg:rgba(245,243,238,.6);
+  --signal:#3d4148;
+  --neutral-ic-bg:rgba(21,22,26,.07);
+  --cursor-op:.14; --cursor-blend:normal;
+}
+
+body{
+  font-family:var(--font-body);
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.5;
+  overflow-x:hidden;
+  transition:background .5s var(--ease),color .5s var(--ease);
+}
+
+/* ================= AMBIENT BACKGROUND (signature, unifié) ================= */
+.ambient{position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden;}
+.ambient span{position:absolute; width:46vw; height:46vw; border-radius:50%; filter:blur(90px); opacity:var(--ambient-op); animation:drift 50s ease-in-out infinite;}
+.ambient span:nth-child(1){background:var(--grenat); top:-12%; left:-10%;}
+.ambient span:nth-child(2){background:var(--cobalt); top:10%; right:-14%; animation-delay:-8s;}
+.ambient span:nth-child(3){background:var(--emeraude); bottom:-16%; left:18%; animation-delay:-22s;}
+.ambient span:nth-child(4){background:var(--lagon); bottom:-10%; right:8%; animation-delay:-34s;}
+.ambient span:nth-child(5){background:var(--bronze); top:38%; left:42%; width:30vw; height:30vw; animation-delay:-14s;}
+@keyframes drift{0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(4%,-5%) scale(1.12);}}
+
+.cursor-glow{
+  position:absolute; top:0; left:0; width:560px; height:560px; border-radius:50%;
+  background:radial-gradient(circle, var(--cursor-color) 0%, transparent 72%);
+  filter:blur(55px); opacity:0; mix-blend-mode:var(--cursor-blend,normal);
+  transition:opacity .6s var(--ease), background .8s var(--ease);
+  transform:translate3d(50vw,50vh,0) translate(-50%,-50%);
+  will-change:transform;
+}
+.cursor-glow.active{opacity:var(--cursor-op,.2);}
+
+/* ================= UTILITIES ================= */
+.wrap{max-width:1240px; margin-inline:auto; padding-inline:clamp(1.25rem,4vw,3rem);}
+.glass{background:var(--glass-bg); border:1px solid var(--glass-border); backdrop-filter:blur(22px) saturate(160%); -webkit-backdrop-filter:blur(22px) saturate(160%); box-shadow:var(--shadow), inset 0 1px 0 rgba(255,255,255,.05);}
+.eyebrow{font-family:var(--font-mono); font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--text-faint); display:flex; align-items:center; gap:.6em; margin-bottom:var(--sp-2);}
+.eyebrow::before{content:''; width:.5em; height:.5em; border-radius:50%; background:var(--accent,var(--signal));}
+h1,h2,h3{font-family:var(--font-display); font-weight:600; letter-spacing:-.01em;}
+section{position:relative; z-index:1; scroll-margin-top:5.5rem;}
+.btn{display:inline-flex; align-items:center; gap:.6em; padding:.85em 1.5em; border-radius:var(--r-pill); font-weight:500; font-size:.95rem; transition:transform .35s var(--ease), box-shadow .35s var(--ease), background .35s var(--ease), border-color .35s var(--ease);white-space:nowrap;}
+.btn svg{width:16px; height:16px;}
+.btn-primary{background:var(--text); color:var(--bg);}
+.btn-primary:hover{transform:translateY(-2px); box-shadow:0 12px 30px rgba(0,0,0,.25);}
+.btn-ghost{border:1px solid var(--border-strong); color:var(--text);}
+.btn-ghost:hover{border-color:var(--text); transform:translateY(-2px);}
+:focus-visible{outline:2px solid var(--accent,var(--signal)); outline-offset:3px; border-radius:6px;}
+
+.reveal{opacity:0; transform:translateY(22px); transition:opacity .8s var(--ease), transform .8s var(--ease);}
+.reveal.in-view{opacity:1; transform:translateY(0);}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation:none !important; transition:none !important;}
+  html{scroll-behavior:auto;}
+  .reveal{opacity:1; transform:none;}
+}
+
+/* ================= MOTIFS D'ANIMATION PARTAGÉS (illustrations) ================= */
+.floatA,.floatB,.floatC,.pulseGlow,.ping{transform-box:fill-box; transform-origin:center;}
+@keyframes floatA{0%,100%{transform:translateY(0);} 50%{transform:translateY(-10px);}}
+@keyframes floatB{0%,100%{transform:translateY(0);} 50%{transform:translateY(8px);}}
+@keyframes floatC{0%,100%{transform:translateY(0);} 50%{transform:translateY(-6px);}}
+.floatA{animation:floatA 5.5s ease-in-out infinite;}
+.floatB{animation:floatB 6.5s ease-in-out infinite;}
+.floatC{animation:floatC 4.8s ease-in-out infinite;}
+@keyframes pulseGlow{0%,100%{opacity:.6; transform:scale(1);} 50%{opacity:1; transform:scale(1.06);}}
+.pulseGlow{animation:pulseGlow 4s ease-in-out infinite;}
+@keyframes pingWave{0%{transform:scale(.5); opacity:.8;} 100%{transform:scale(1.8); opacity:0;}}
+.ping{animation:pingWave 4s ease-out infinite;}
+.traveler{offset-path:path('M30 230 C 90 230, 90 140, 150 140 S 230 90, 250 40'); animation:travel 7s linear infinite;}
+@keyframes travel{0%{offset-distance:0%;} 100%{offset-distance:100%;}}
+
+/* ================= HEADER ================= */
+.site-header{position:fixed; top:0; left:0; right:0; z-index:100; background:var(--header-bg); border-bottom:1px solid transparent; transition:border-color .4s var(--ease), background .4s var(--ease);}
+.site-header.scrolled{border-bottom-color:var(--glass-border); backdrop-filter:blur(18px) saturate(160%); -webkit-backdrop-filter:blur(18px) saturate(160%);}
+.header-inner{display:flex; align-items:center; justify-content:space-between; padding-block:1.1rem;}
+.brand{display:flex; align-items:center; gap:.7rem; font-family:var(--font-display); font-weight:600; font-size:1.1rem;}
+.brand svg{width:30px; height:30px;}
+nav.main-nav{display:flex; gap:1.9rem;}
+nav.main-nav a{font-size:.92rem; color:var(--text-soft); position:relative; padding-bottom:4px; transition:color .3s var(--ease);}
+nav.main-nav a::after{content:''; position:absolute; left:0; bottom:0; height:1px; width:0; background:var(--text); transition:width .35s var(--ease);}
+nav.main-nav a:hover{color:var(--text);}
+nav.main-nav a:hover::after{width:100%;}
+.header-actions{display:flex; align-items:center; gap:.9rem;}
+.lang-switch{display:flex; border:1px solid var(--border-strong); border-radius:var(--r-pill); overflow:hidden;}
+.lang-switch button{padding:.4em .85em; font-family:var(--font-mono); font-size:.72rem; letter-spacing:.04em; color:var(--text-soft); transition:all .3s var(--ease);}
+.lang-switch button.active{background:var(--text); color:var(--bg);}
+.mobile-panel .lang-switch{margin-bottom:1.2rem;}
+.icon-btn{width:38px; height:38px; display:grid; place-items:center; border-radius:50%; border:1px solid var(--border-strong); transition:border-color .3s var(--ease), transform .3s var(--ease);}
+.icon-btn:hover{transform:translateY(-2px); border-color:var(--text);}
+.icon-btn svg{width:17px; height:17px;}
+#themeToggle .sun{display:none;} #themeToggle .moon{display:block;}
+[data-theme="light"] #themeToggle .sun{display:block;} [data-theme="light"] #themeToggle .moon{display:none;}
+.nav-toggle{display:none;}
+.mobile-panel{display:none;}
+
+@media (max-width:880px){
+  nav.main-nav{display:none;}
+  .header-actions .btn-ghost-desktop{display:none;}
+  .nav-toggle{display:grid; width:38px; height:38px; place-items:center; border-radius:50%; border:1px solid var(--border-strong);}
+  .nav-toggle svg{width:18px; height:18px;}
+  .mobile-panel{display:block; position:fixed; inset:0; top:64px; z-index:99; background:var(--header-bg); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); transform:translateY(-12px); opacity:0; pointer-events:none; transition:opacity .35s var(--ease), transform .35s var(--ease); padding:var(--sp-3) clamp(1.25rem,4vw,3rem);}
+  .mobile-panel.open{opacity:1; transform:translateY(0); pointer-events:auto;}
+  .mobile-panel a{display:block; padding:1rem 0; font-size:1.15rem; border-bottom:1px solid var(--border);}
+  .mobile-panel .btn{margin-top:var(--sp-3); width:100%; justify-content:center;}
+}
+
+/* ================= HERO ================= */
+.hero{padding-top:9.5rem; padding-bottom:var(--sp-6);}
+.hero .wrap{display:grid; grid-template-columns:1.1fr .9fr; gap:var(--sp-5); align-items:center;}
+.hero h1{font-size:var(--fs-display); line-height:1.06; margin-bottom:var(--sp-3);}
+.hero p.lead{font-size:1.08rem; color:var(--text-soft); max-width:34em; margin-bottom:var(--sp-4);}
+.hero .cta-row{display:flex; gap:1rem; flex-wrap:wrap;}
+
+.orbit{position:relative; width:100%; max-width:420px; aspect-ratio:1; margin-inline:auto;}
+.orbit-center{position:absolute; inset:0; display:grid; place-items:center;}
+.orbit-center .core{width:30%; height:30%; border-radius:50%; display:grid; place-items:center; background:var(--glass-bg-strong); border:1px solid var(--glass-border); box-shadow:var(--shadow);}
+.orbit-center .core svg{width:42%; height:42%;}
+.orbit-ring{position:absolute; inset:0; animation:spin 70s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.orbit-node{position:absolute; top:50%; left:50%; width:0; height:0;}
+.orbit-node .pin{position:absolute; width:64px; height:64px; margin:-32px; display:grid; place-items:center; border-radius:50%; background:var(--glass-bg-strong); border:1px solid var(--glass-border); box-shadow:var(--shadow); animation:spin-rev 70s linear infinite; color:var(--node-color);}
+@keyframes spin-rev{to{transform:rotate(-360deg);}}
+.orbit-node .pin svg{width:24px; height:24px;}
+.orbit-node .pin::after{content:''; position:absolute; inset:-1px; border-radius:50%; box-shadow:0 0 22px 2px var(--node-glow); opacity:.55;}
+.orbit-track{position:absolute; inset:6%; border:1px dashed var(--border); border-radius:50%;}
+
+/* ================= OVERVIEW (bento asymétrique) ================= */
+.overview{padding-block:var(--sp-6);}
+.section-head{max-width:42em; margin-bottom:var(--sp-4);}
+.section-head h2{font-size:var(--fs-h2); margin-bottom:.7rem;}
+.section-head p{color:var(--text-soft); font-size:1.02rem;}
+.overview-grid{display:grid; grid-template-columns:repeat(5,1fr); gap:1.1rem; margin-top:var(--sp-4);}
+.dept-card{grid-column:span 1; padding:1.8rem 1.6rem; border-radius:var(--r-lg); display:flex; flex-direction:column; gap:.7rem; min-height:250px; transition:transform .45s var(--ease), border-color .45s var(--ease), box-shadow .45s var(--ease);}
+.overview-grid .dept-card:nth-child(odd){transform:translateY(6px);}
+.overview-grid .dept-card:nth-child(even){transform:translateY(-10px);}
+.dept-card:hover{transform:translateY(-6px) !important; border-color:var(--accent); box-shadow:0 22px 50px var(--accent-glow);}
+.dept-card .ic{width:46px; height:46px; border-radius:50%; display:grid; place-items:center; background:var(--accent-soft); color:var(--accent);}
+.dept-card .ic svg{width:21px; height:21px;}
+.dept-card h3{font-size:1.05rem;}
+.dept-card p{font-size:.88rem; color:var(--text-soft); flex:1;}
+.dept-card .teaser-price{font-family:var(--font-mono); font-size:.78rem; color:var(--accent); font-weight:500;}
+.dept-card .go{font-family:var(--font-mono); font-size:.74rem; letter-spacing:.06em; color:var(--accent); display:flex; align-items:center; gap:.4em;}
+.dept-card .go svg{width:13px; height:13px; transition:transform .3s var(--ease);}
+.dept-card:hover .go svg{transform:translateX(3px);}
+
+@media (max-width:980px){.overview-grid{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:620px){
+  .hero .wrap{grid-template-columns:1fr;}
+  .orbit{order:-1; max-width:280px; margin-bottom:var(--sp-3);}
+  .overview-grid{grid-template-columns:1fr;}
+  .overview-grid .dept-card:nth-child(odd),.overview-grid .dept-card:nth-child(even){transform:none;}
+}
+
+/* ================= DEPARTMENT SECTIONS ================= */
+.dept{padding-block:var(--sp-6); border-top:1px solid var(--border); position:relative; overflow:hidden;}
+.dept .wrap{position:relative; z-index:1;}
+.dept::before{content:''; position:absolute; width:60vw; height:60vw; max-width:760px; max-height:760px; border-radius:50%; background:var(--accent); opacity:.11; filter:blur(110px); top:-14%; right:-16%; z-index:0; animation:drift 46s ease-in-out infinite;}
+.particles{position:absolute; inset:0; pointer-events:none; z-index:0; overflow:hidden;}
+.particles span{position:absolute; bottom:-20px; width:5px; height:5px; border-radius:50%; background:var(--accent); opacity:0; animation:rise 17s linear infinite;}
+@keyframes rise{0%{transform:translateY(0) scale(1); opacity:0;} 10%{opacity:.55;} 88%{opacity:.25;} 100%{transform:translateY(-640px) scale(.4); opacity:0;}}
+
+.dept-head{display:grid; grid-template-columns:1.15fr .85fr; gap:var(--sp-5); align-items:center; margin-bottom:var(--sp-3);}
+.dept-head h2{font-size:var(--fs-h2); margin-bottom:.8rem; display:flex; align-items:center; gap:.6rem;}
+.dept-head h2 svg{width:.8em; height:.8em; color:var(--accent);}
+.dept-head .intro p{color:var(--text-soft); font-size:1.02rem;}
+.dept-art{display:grid; place-items:center; color:var(--accent);}
+.dept-art-svg{width:100%; max-width:300px;}
+
+.pill-nav{display:flex; gap:.6rem; flex-wrap:wrap; margin-bottom:var(--sp-4);}
+.pill{font-family:var(--font-mono); font-size:.76rem; letter-spacing:.02em; padding:.55em 1.05em; border-radius:var(--r-pill); border:1px solid var(--border-strong); color:var(--text-soft); transition:all .3s var(--ease); white-space:nowrap;}
+.pill:hover{border-color:var(--accent); color:var(--accent);}
+
+.service-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:1rem;}
+.service-card{padding:1.5rem; border-radius:var(--r-md); display:flex; flex-direction:column; gap:.8rem; transition:transform .4s var(--ease), border-color .4s var(--ease), box-shadow .4s var(--ease);}
+.service-card.pulse{border-color:var(--accent); box-shadow:0 0 0 1px var(--accent), 0 16px 36px var(--accent-glow);}
+.service-card:hover{transform:translateY(-4px); border-color:var(--accent); box-shadow:0 16px 36px var(--accent-glow);}
+.service-card .top{display:flex; align-items:center; gap:.8rem;}
+.service-card .ic{width:38px; height:38px; border-radius:10px; display:grid; place-items:center; background:var(--accent-soft); color:var(--accent); flex:none;}
+.service-card .ic svg{width:18px; height:18px;}
+.service-card .num{font-family:var(--font-mono); font-size:.78rem; color:var(--accent); flex:none;}
+.service-card h3{font-size:.98rem;}
+.service-card p{font-size:.85rem; color:var(--text-soft);}
+.card-foot{display:flex; align-items:center; justify-content:space-between; gap:.6rem; margin-top:auto; padding-top:.4rem;}
+.price{font-family:var(--font-mono); font-size:.8rem; color:var(--accent); font-weight:500;}
+.add-btn{display:flex; align-items:center; gap:.35rem; font-size:.78rem; padding:.45em .85em; border-radius:var(--r-pill); border:1px solid var(--border-strong); transition:all .3s var(--ease); flex:none;}
+.add-btn svg{width:13px; height:13px;}
+.add-btn:hover{border-color:var(--accent); color:var(--accent);}
+.add-btn.active{background:var(--accent); border-color:var(--accent); color:#fff;}
+
+@media (max-width:820px){.dept-head{grid-template-columns:1fr;} .dept-art-svg{max-width:220px;}}
+
+/* ================= ABOUT ================= */
+.about{padding-block:var(--sp-6); border-top:1px solid var(--border); position:relative; overflow:hidden;}
+.about .wrap{position:relative; z-index:1;}
+.about-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:1.1rem; margin-top:var(--sp-4);}
+.about-card{padding:1.8rem; border-radius:var(--r-lg); display:flex; flex-direction:column; gap:.9rem;}
+.about-card .ic{width:42px; height:42px; border-radius:12px; display:grid; place-items:center; background:var(--neutral-ic-bg); color:var(--signal);}
+.about-card .ic svg{width:19px; height:19px;}
+.about-card h3{font-size:1.02rem;}
+.about-card p{font-size:.88rem; color:var(--text-soft);}
+
+/* ================= CONTACT ================= */
+.contact{padding-block:var(--sp-6); border-top:1px solid var(--border);}
+.contact-grid{display:grid; grid-template-columns:1.2fr .8fr; gap:var(--sp-4); margin-top:var(--sp-4);}
+.contact-form{padding:2rem; border-radius:var(--r-lg); display:flex; flex-direction:column; gap:1.1rem;}
+.field{display:flex; flex-direction:column; gap:.45rem;}
+.field label{font-size:.8rem; color:var(--text-soft); font-family:var(--font-mono); letter-spacing:.04em;}
+.field input,.field select,.field textarea{padding:.8em 1em; border-radius:var(--r-sm); border:1px solid var(--border-strong); background:transparent; color:var(--text); font-size:.95rem; transition:border-color .3s var(--ease);}
+.field select option{background:var(--bg); color:var(--text);}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--text);}
+.field textarea{min-height:130px; resize:vertical;}
+.contact-form .btn-primary{align-self:flex-start;}
+.form-note{font-size:.8rem; color:var(--text-faint);}
+.form-success{display:none; align-items:center; gap:.7rem; padding:1.2rem; border-radius:var(--r-md); border:1px solid var(--emeraude); color:var(--emeraude); background:var(--emeraude-soft); font-size:.92rem;}
+.form-success.show{display:flex;}
+.form-success svg{width:18px; height:18px; flex:none;}
+
+.contact-info{display:flex; flex-direction:column; gap:1rem;}
+.info-card{padding:1.5rem; border-radius:var(--r-md); display:flex; gap:1rem; align-items:flex-start;}
+.info-card a{display:block;}
+.info-card .ic{width:38px; height:38px; border-radius:10px; display:grid; place-items:center; background:var(--neutral-ic-bg); color:var(--signal); flex:none;}
+.info-card.is-wa .ic{background:rgba(37,211,102,.16); color:var(--whatsapp);}
+.info-card .ic svg{width:17px; height:17px;}
+.info-card h4{font-size:.92rem; margin-bottom:.25rem;}
+.info-card p{font-size:.86rem; color:var(--text-soft);}
+
+@media (max-width:880px){.contact-grid{grid-template-columns:1fr;}}
+
+/* ================= FOOTER ================= */
+footer{padding-block:var(--sp-4); border-top:1px solid var(--border);}
+.footer-inner{display:flex; flex-wrap:wrap; gap:1.5rem; align-items:center; justify-content:space-between;}
+.footer-brand{display:flex; align-items:center; gap:.6rem; font-family:var(--font-display); font-weight:600;}
+.footer-brand svg{width:24px; height:24px;}
+.footer-nav{display:flex; gap:1.4rem; flex-wrap:wrap;}
+.footer-nav a{font-size:.85rem; color:var(--text-soft);}
+.footer-nav a:hover{color:var(--text);}
+.footer-meta{font-size:.78rem; color:var(--text-faint); font-family:var(--font-mono);}
+
+/* ================= FLOATING ACTIONS ================= */
+.fab-whatsapp{position:fixed; bottom:24px; left:24px; z-index:90; width:56px; height:56px; border-radius:50%; background:var(--whatsapp); display:grid; place-items:center; box-shadow:0 10px 30px rgba(0,0,0,.35); transition:transform .3s var(--ease);}
+.fab-whatsapp:hover{transform:translateY(-3px) scale(1.05);}
+.fab-whatsapp svg{width:26px; height:26px; color:#fff;}
+.fab-devis{position:fixed; bottom:24px; right:24px; z-index:90; display:flex; align-items:center; gap:.6rem; padding:.85rem 1.3rem; border-radius:var(--r-pill); background:var(--text); color:var(--bg); box-shadow:0 10px 30px rgba(0,0,0,.35); transition:transform .3s var(--ease);}
+.fab-devis:hover{transform:translateY(-3px);}
+.fab-devis svg{width:18px; height:18px;}
+.fab-devis .badge{background:var(--bronze); color:#fff; font-family:var(--font-mono); font-size:.72rem; min-width:20px; height:20px; border-radius:50%; display:grid; place-items:center; padding:0 4px;}
+.fab-devis .badge.zero{display:none;}
+@media (max-width:560px){.fab-devis span.lbl-full{display:none;}}
+
+/* ================= PANNEAU DEVIS ================= */
+.devis-overlay{position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:95; opacity:0; pointer-events:none; transition:opacity .35s var(--ease);}
+.devis-overlay.open{opacity:1; pointer-events:auto;}
+.devis-panel{position:fixed; right:0; top:0; bottom:0; width:min(440px,100%); z-index:96; transform:translateX(100%); transition:transform .4s var(--ease); display:flex; flex-direction:column; padding:1.8rem; background:var(--bg-1); border-left:1px solid var(--border); overflow-y:auto;}
+.devis-panel.open{transform:translateX(0);}
+.devis-panel h3{font-size:1.15rem; margin-bottom:.3rem;}
+.devis-panel .sub{font-size:.84rem; color:var(--text-soft); margin-bottom:1.3rem;}
+.devis-close{position:absolute; top:1.6rem; right:1.6rem;}
+.devis-list{display:flex; flex-direction:column; gap:.7rem; flex:1;}
+.devis-empty{color:var(--text-faint); font-size:.88rem; padding:2rem 0; text-align:center;}
+.devis-item{display:flex; align-items:center; gap:.7rem; padding:.8rem; border-radius:var(--r-sm); border:1px solid var(--border);}
+.devis-item .dot{width:9px; height:9px; border-radius:50%; flex:none;}
+.devis-item .info{flex:1;}
+.devis-item .info h4{font-size:.86rem;}
+.devis-item .info p{font-size:.74rem; color:var(--text-soft); font-family:var(--font-mono); margin-top:.15rem;}
+.devis-item button{color:var(--text-faint); transition:color .2s; flex:none;}
+.devis-item button svg{width:14px; height:14px;}
+.devis-item button:hover{color:var(--grenat);}
+.devis-total{border-top:1px solid var(--border); padding-top:1rem; margin-top:1rem;}
+.devis-total .row{display:flex; justify-content:space-between; font-size:.88rem; margin-bottom:.3rem; color:var(--text-soft);}
+.devis-total .row.grand{font-family:var(--font-display); font-size:1.25rem; font-weight:600; color:var(--text);}
+.devis-total small{display:block; color:var(--text-faint); font-size:.74rem; margin-top:.5rem; line-height:1.4;}
+.devis-panel .btn{margin-top:1.2rem; width:100%; justify-content:center;}
+</style>
+</head>
+<body>
+
+<div class="ambient" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><div class="cursor-glow" id="cursorGlow"></div></div>
+
+<!-- ================= HEADER ================= -->
+<header class="site-header" id="siteHeader">
+  <div class="wrap header-inner">
+    <a href="#accueil" class="brand">
+      <svg viewBox="0 0 40 40" aria-hidden="true">
+        <defs>
+          <linearGradient id="cyroGrad" x1="0" y1="0" x2="40" y2="40">
+            <stop offset="0%" stop-color="var(--grenat)"/>
+            <stop offset="30%" stop-color="var(--bronze)"/>
+            <stop offset="55%" stop-color="var(--emeraude)"/>
+            <stop offset="78%" stop-color="var(--lagon)"/>
+            <stop offset="100%" stop-color="var(--cobalt)"/>
+          </linearGradient>
+        </defs>
+        <path d="M27 9 A13 13 0 1 0 27 31" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"/>
+        <line x1="27" y1="9" x2="31" y2="20" stroke="url(#cyroGrad)" stroke-width="1.6" stroke-linecap="round"/>
+        <line x1="27" y1="31" x2="31" y2="20" stroke="url(#cyroGrad)" stroke-width="1.6" stroke-linecap="round"/>
+        <circle cx="31" cy="20" r="3.5" fill="url(#cyroGrad)"/>
+        <circle cx="27" cy="9" r="1.6" fill="currentColor"/>
+        <circle cx="27" cy="31" r="1.6" fill="currentColor"/>
+      </svg>
+      CyroLab
+    </a>
+    <nav class="main-nav" aria-label="Navigation principale">
+      <a href="#design-graphique" data-i18n="nav-design">Design graphique</a>
+      <a href="#web-design" data-i18n="nav-web">Conception web</a>
+      <a href="#applications" data-i18n="nav-apps">Applications</a>
+      <a href="#telecom" data-i18n="nav-telecom">Télécommunication</a>
+      <a href="#gestion-projet" data-i18n="nav-gestion">Gestion de projet</a>
+      <a href="#apropos" data-i18n="nav-about">À propos</a>
+    </nav>
+    <div class="header-actions">
+      <a href="#contact" class="btn btn-ghost btn-ghost-desktop" data-i18n="cta-discuter-short">Discutons</a>
+      <div class="lang-switch" role="group" aria-label="Langue / Language">
+        <button data-lang="fr" class="active">FR</button>
+        <button data-lang="en">EN</button>
+      </div>
+      <button class="icon-btn" id="themeToggle" data-i18n-aria="aria-theme" aria-label="Changer de thème" aria-pressed="false">
+        <svg class="sun" data-feather="sun"></svg>
+        <svg class="moon" data-feather="moon"></svg>
+      </button>
+      <button class="nav-toggle" id="navToggle" data-i18n-aria="aria-menu" aria-label="Ouvrir le menu" aria-expanded="false">
+        <svg data-feather="menu"></svg>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-panel" id="mobilePanel">
+    <div class="lang-switch" role="group" aria-label="Langue / Language">
+      <button data-lang="fr" class="active">FR</button>
+      <button data-lang="en">EN</button>
+    </div>
+    <a href="#design-graphique" data-i18n="nav-design">Design graphique</a>
+    <a href="#web-design" data-i18n="nav-web">Conception web</a>
+    <a href="#applications" data-i18n="nav-apps">Applications</a>
+    <a href="#telecom" data-i18n="nav-telecom">Télécommunication</a>
+    <a href="#gestion-projet" data-i18n="nav-gestion">Gestion de projet</a>
+    <a href="#apropos" data-i18n="nav-about">À propos</a>
+    <a href="#contact" class="btn btn-primary" data-i18n="cta-discuter-long">Discutons de votre projet</a>
+  </div>
+</header>
+
+<main>
+
+<!-- ================= HERO ================= -->
+<section id="accueil" class="hero" data-accent="signal">
+  <div class="wrap">
+    <div class="reveal in-view">
+      <p class="eyebrow" data-i18n="hero-eyebrow">Studio multidisciplinaire</p>
+      <h1 data-i18n="hero-h1">Cinq expertises.<br>Un seul studio.<br>Un projet qui prend forme.</h1>
+      <p class="lead" data-i18n="hero-lead">CyroLab accompagne votre projet du concept à la mise en œuvre : identité visuelle, présence web, applications, infrastructure télécom et pilotage de projet — coordonnés par un seul interlocuteur.</p>
+      <div class="cta-row">
+        <a href="#services" class="btn btn-primary"><span data-i18n="hero-cta1">Explorer les services</span> <svg data-feather="arrow-right"></svg></a>
+        <a href="#contact" class="btn btn-ghost" data-i18n="hero-cta2">Démarrer un projet</a>
+      </div>
+    </div>
+
+    <div class="orbit reveal in-view" aria-hidden="true">
+      <div class="orbit-track"></div>
+      <div class="orbit-ring">
+        <div class="orbit-node" style="transform:rotate(0deg) translateY(-150px)"><span class="pin" style="--node-color:var(--grenat); --node-glow:var(--grenat-glow);"><svg data-feather="pen-tool"></svg></span></div>
+        <div class="orbit-node" style="transform:rotate(72deg) translateY(-150px)"><span class="pin" style="--node-color:var(--emeraude); --node-glow:var(--emeraude-glow);"><svg data-feather="globe"></svg></span></div>
+        <div class="orbit-node" style="transform:rotate(144deg) translateY(-150px)"><span class="pin" style="--node-color:var(--cobalt); --node-glow:var(--cobalt-glow);"><svg data-feather="cpu"></svg></span></div>
+        <div class="orbit-node" style="transform:rotate(216deg) translateY(-150px)"><span class="pin" style="--node-color:var(--lagon); --node-glow:var(--lagon-glow);"><svg data-feather="wifi"></svg></span></div>
+        <div class="orbit-node" style="transform:rotate(288deg) translateY(-150px)"><span class="pin" style="--node-color:var(--bronze); --node-glow:var(--bronze-glow);"><svg data-feather="compass"></svg></span></div>
+      </div>
+      <div class="orbit-center">
+        <div class="core glass">
+          <svg viewBox="0 0 40 40">
+            <path d="M27 9 A13 13 0 1 0 27 31" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"/>
+            <line x1="27" y1="9" x2="31" y2="20" stroke="url(#cyroGrad)" stroke-width="1.6" stroke-linecap="round"/>
+            <line x1="27" y1="31" x2="31" y2="20" stroke="url(#cyroGrad)" stroke-width="1.6" stroke-linecap="round"/>
+            <circle cx="31" cy="20" r="3.5" fill="url(#cyroGrad)"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= OVERVIEW ================= -->
+<section id="services" class="overview" data-accent="signal">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow" data-i18n="ov-eyebrow">Nos domaines</p>
+      <h2 data-i18n="ov-h2">Choisissez le service qui correspond à votre besoin</h2>
+      <p data-i18n="ov-p">Chaque domaine se déploie en services précis, avec un prix affiché — composez votre devis directement depuis les cartes ci-dessous.</p>
+    </div>
+    <div class="overview-grid">
+      <a href="#design-graphique" class="dept-card glass reveal" style="--accent:var(--grenat); --accent-soft:var(--grenat-soft); --accent-glow:var(--grenat-glow);">
+        <span class="ic"><svg data-feather="pen-tool"></svg></span>
+        <h3 data-i18n="ov-design-graphique-t">Design graphique</h3>
+        <p data-i18n="ov-design-graphique-d">Identité visuelle, supports imprimés et illustrations qui donnent un visage à votre marque.</p>
+        <span class="teaser-price" data-i18n="ov-design-graphique-price">dès 15 $</span>
+        <span class="go" data-i18n="ov-go">Voir le détail <svg data-feather="arrow-right"></svg></span>
+      </a>
+      <a href="#web-design" class="dept-card glass reveal" style="--accent:var(--emeraude); --accent-soft:var(--emeraude-soft); --accent-glow:var(--emeraude-glow);">
+        <span class="ic"><svg data-feather="globe"></svg></span>
+        <h3 data-i18n="ov-web-design-t">Conception web</h3>
+        <p data-i18n="ov-web-design-d">Sites et plateformes pensés pour convertir, du site vitrine à la boutique en ligne.</p>
+        <span class="teaser-price" data-i18n="ov-web-design-price">dès 90 $</span>
+        <span class="go" data-i18n="ov-go">Voir le détail <svg data-feather="arrow-right"></svg></span>
+      </a>
+      <a href="#applications" class="dept-card glass reveal" style="--accent:var(--cobalt); --accent-soft:var(--cobalt-soft); --accent-glow:var(--cobalt-glow);">
+        <span class="ic"><svg data-feather="cpu"></svg></span>
+        <h3 data-i18n="ov-applications-t">Conception d'applications</h3>
+        <p data-i18n="ov-applications-d">Applications mobiles, web et de bureau, du prototype au produit maintenu.</p>
+        <span class="teaser-price" data-i18n="ov-applications-price">dès 100 $</span>
+        <span class="go" data-i18n="ov-go">Voir le détail <svg data-feather="arrow-right"></svg></span>
+      </a>
+      <a href="#telecom" class="dept-card glass reveal" style="--accent:var(--lagon); --accent-soft:var(--lagon-soft); --accent-glow:var(--lagon-glow);">
+        <span class="ic"><svg data-feather="wifi"></svg></span>
+        <h3 data-i18n="ov-telecom-t">Télécommunication</h3>
+        <p data-i18n="ov-telecom-d">Réseaux, téléphonie et infrastructure pour une organisation connectée et sécurisée.</p>
+        <span class="teaser-price" data-i18n="ov-telecom-price">dès 80 $</span>
+        <span class="go" data-i18n="ov-go">Voir le détail <svg data-feather="arrow-right"></svg></span>
+      </a>
+      <a href="#gestion-projet" class="dept-card glass reveal" style="--accent:var(--bronze); --accent-soft:var(--bronze-soft); --accent-glow:var(--bronze-glow);">
+        <span class="ic"><svg data-feather="compass"></svg></span>
+        <h3 data-i18n="ov-gestion-projet-t">Gestion de projet</h3>
+        <p data-i18n="ov-gestion-projet-d">Cadrage, pilotage et coordination pour livrer dans les délais et le budget.</p>
+        <span class="teaser-price" data-i18n="ov-gestion-projet-price">dès 80 $</span>
+        <span class="go" data-i18n="ov-go">Voir le détail <svg data-feather="arrow-right"></svg></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DESIGN GRAPHIQUE ================= -->
+<section id="design-graphique" class="dept" data-dept-label="Design graphique" data-accent="grenat" style="--accent:var(--grenat); --accent-soft:var(--grenat-soft); --accent-glow:var(--grenat-glow);">
+  <div class="particles" aria-hidden="true"><span style="left:8%;animation-delay:0s;"></span><span style="left:22%;animation-delay:-4s;"></span><span style="left:38%;animation-delay:-9s;"></span><span style="left:55%;animation-delay:-2s;"></span><span style="left:72%;animation-delay:-6s;"></span><span style="left:88%;animation-delay:-11s;"></span></div>
+  <div class="wrap">
+    <div class="dept-head">
+      <div class="intro reveal">
+        <p class="eyebrow" data-i18n="dept-eyebrow">Expertise</p>
+        <h2><svg data-feather="pen-tool"></svg><span data-i18n="nav-design">Design graphique</span></h2>
+        <p data-i18n="intro-dg">Une identité visuelle cohérente, du logo au plus petit support de communication. Chaque élément est pensé pour rester reconnaissable, qu'il soit imprimé ou affiché à l'écran.</p>
+      </div>
+      <div class="dept-art reveal" aria-hidden="true">
+        <svg class="dept-art-svg" viewBox="0 0 280 280">
+          <circle cx="156" cy="156" r="78" fill="currentColor" fill-opacity=".09" class="pulseGlow"/>
+          <rect x="96" y="96" width="120" height="120" rx="20" transform="rotate(-8 156 156)" fill="none" stroke="currentColor" stroke-width="2" stroke-opacity=".55"/>
+          <circle cx="70" cy="80" r="16" fill="currentColor" fill-opacity=".5" class="floatA"/>
+          <circle cx="210" cy="70" r="11" fill="currentColor" fill-opacity=".35" class="floatB"/>
+          <circle cx="70" cy="210" r="9" fill="currentColor" fill-opacity=".3" class="floatC"/>
+          <line x1="60" y1="220" x2="190" y2="90" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-opacity=".5"/>
+          <circle cx="190" cy="90" r="5" fill="currentColor"/>
+        </svg>
+      </div>
+    </div>
+    <nav class="pill-nav reveal" aria-label="Services en design graphique">
+      <a class="pill" data-target="#dg-1" data-i18n="dg-1-pill">Charte graphique</a>
+      <a class="pill" data-target="#dg-2" data-i18n="dg-2-pill">Logo</a>
+      <a class="pill" data-target="#dg-3" data-i18n="dg-3-pill">Flyers &amp; affiches</a>
+      <a class="pill" data-target="#dg-4" data-i18n="dg-4-pill">Cartes de visite</a>
+      <a class="pill" data-target="#dg-5" data-i18n="dg-5-pill">Packaging</a>
+      <a class="pill" data-target="#dg-6" data-i18n="dg-6-pill">Brochures</a>
+      <a class="pill" data-target="#dg-7" data-i18n="dg-7-pill">Réseaux sociaux</a>
+      <a class="pill" data-target="#dg-8" data-i18n="dg-8-pill">Illustration</a>
+      <a class="pill" data-target="#dg-9" data-i18n="dg-9-pill">Mise en page</a>
+    </nav>
+    <div class="service-grid">
+      <div id="dg-1" class="service-card glass reveal">
+        <div class="top"><span class="ic"><svg data-feather="layers"></svg></span><h3 data-i18n="dg-1-t">Charte graphique &amp; identité visuelle</h3></div>
+        <p data-i18n="dg-1-d">Logo, palette, typographies et règles d'usage réunis dans un document de référence.</p>
+        <div class="card-foot"><span class="price" data-i18n="dg-1-p">à partir de 120 $</span><button class="add-btn" data-accent="grenat" aria-pressed="false"><svg data-feather="plus"></svg><span class="lbl" data-i18n="btn-add">Ajouter</span></button></div>
+      </div>
+      <div id="dg-2" class="service-card glass reveal">
+        <div class="top"><span class="ic"><svg data-feather="hexagon"></svg></span><h3 data-i18n="dg-2-t">Conception de logo</h3></div>
+        <p data-i18n="dg-2-d">Un symbole simple, mémorisable, qui fonctionne en grand format comme en miniature.</p>
+        <div class="card-foot"><span class="price" data-i18n="dg-2-p">60 $</span><button class="add-btn" data-accent="grenat" aria-pressed="false"><svg data-feather="plus"></svg><span class="lbl" data-i18n="btn-add">Ajouter</span></button></div>
+      </div>
+      <div id="dg-3" class="service-card glass reveal">
+        <div class="top"><span class="ic"><svg data-feather="image"></svg></span><h3 data-i18n="dg-3-t">Flyers &amp; affiches</h3></div>
+        <p data-i18n="dg-3-d">Supports d'annonce et de promotion, prêts pour l'impression ou la diffusion numérique.</p>
+        <div class="card-foot"><span class="price" data-i18n="dg-3-p">20 $ / visuel</span><button class="add-btn" data-accent="grenat" aria-pressed="false"><svg data-feather="plus"></svg><span class="lbl" data-i18n="btn-add">Ajouter</span></button></div>
+      </div>
+      <div id="dg-4" class="service-card glass reveal">
+        <div class="top"><span class="ic"><svg data-feather="credit-card"></svg></span><h3 data-i18n="dg-4-t">Cartes de visite</h3></div>
+        <p data-i18n="dg-4-d">Un premier contact professionnel, cohérent avec le reste de votre identité.</p>
+        <div class="card-foot"><span class="price" data-i18n="dg-4-p">20 $</span><button class="add-btn" data-accent="grenat" aria-pressed="false"><svg data-feather="plus"></svg><span class="lbl" data-i18n="btn-add">Ajouter</span></button></div>
+      </div>
+      <div id="dg-5" class="service-card glass reveal">
+        <div class="top"><span class="ic"><svg data-feather="package"></svg></span><h3 data-i18n="dg-5-t">Packaging &amp; étiquetage</h3></div>
+        <p data-i18n="dg-5-d">Des emballages qui protègent le produit et renforcent la reconnaissance de la marque.</p>
+        <div class="card-foot"><span class="price" data-i18n="dg-5-p">à partir de 80 $</span><button class="add-btn" data-accent="grenat" aria-pressed="false"><svg data-feather="plus"></svg><span class="lbl" data-i18n="btn-add">Ajouter</span></button></div>
+      </div>
+      <div id="dg-6" class="service-card glass reveal">
+        <div class="top"><span class="ic"><svg data-feather="book"></svg></span><h3 data-i18n="dg-6-t">Brochures &amp; plaquettes</h3></div>
+        <p data-i18n="dg-6-d">Documents de présentation détaillés pour vos offres, services ou rapports.</p>
+        <div class="card-foot"><span class="price" data-i18n="dg-6-p">à partir de 60 $</span><button class="add-btn" data-accent="grenat" aria-pressed="false"><svg data-feather="plus"></svg><span class="lbl" data-i18n="btn-add">Ajouter</span></button></div>
+      </div>
+      <div id="dg-7" class="service-card glass reveal">
+        <div class="top"><span class="ic"><svg data-feather="share-2"></svg></span><h3 data-i18n="dg-7-t">Supports réseaux sociaux</h3></div>
+        <p data-i18n="dg-7-d">Visuels déclinés pour chaque plateforme, dans un style reconnaissable d'un post à l'autre.</p>
+        <div class="card-foot"><span class="price" data-i18n="dg-7-p">15 $ / publication</span><button class="add-btn" data-accent="grenat" aria-pressed="false"><svg data-feather="plus"></svg><span class="lbl" data-i18n="btn-add">Ajouter</span></button></div>
+      </div>
+      <div id="dg-8" class="service-card glass reveal">
+        <div class="top"><span class="ic"><svg data-feather="edit-3"></svg></span><h3 data-i18n="dg-8-t">Illustration &amp; infographie</h3></div>
+        <p data-i18n="dg-8-d">Visuels originaux et données mises en image pour expliquer plutôt que décrire.</p>
+        <div class="card-foot"><span class="price" data-i18n="dg-8-p">à partir de 25 $</span><button class="add-btn" data-accent="grenat" aria-pressed="false"><svg data-feather="plus"></svg><span class="lbl" data-i18n="btn-add">Ajouter</span></button></div>
+      </div>
+      <div id="dg-9" class="service-card glass reveal">
+        <div class="top"><span class="ic"><svg data-feather="layout"></svg></span><h3 data-i18n="dg-9-t">Mise en page éditoriale</h3></div>
+        <p data-i18n="dg-9-d">Catalogues, magazines et rapports structurés pour une lecture fluide.</p>
+        <div class="card-foot"><span class="price" data-i18n="dg-9-p">à partir de 70 $</span><button class="add-btn" data-accent="grenat" aria-pressed="false"><svg data-feather="plus"></svg><span class="lbl" data-i18n="btn-add">Ajouter</span></button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WEB DESIGN ================= -->
+<section id="web-design" class="dept" data-dept-label="Conception web" data-accent="emeraude" style="--accent:var(--emeraude); --accent-soft:var(--emeraude-soft); --accent-glow:var(--emeraude-glow);">
+  <div class="particles" aria-hidden="true"><span style="left:12%;animation-delay:-2s;"></span><span style="left:30%;animation-delay:-7s;"></span><span style="left:46%;animation-delay:-1s;"></span><span style="left:64%;animation-delay:-10s;"></span><span style="left:80%;animation-delay:-5s;"></span><span style="left:93%;animation-delay:-13s;"></span></div>
+  <div class="wrap">
+    <div class="dept-head">
+      <div class="intro reveal">
+        <p class="eyebrow" data-i18n="dept-eyebrow">Expertise</p>
+        <h2><svg data-feather="globe"></svg><span data-i18n="nav-web">Conception web</span></h2>
+        <p data-i18n="intro-wd">Un site qui charge vite, se comprend en un coup d'œil et convertit. De la vitrine institutionnelle à la boutique en ligne, chaque page est construite pour son audience.</p>
+      </div>
+      <div class="dept-art reveal" aria-hidden="true">
+        <svg class="dept-art-svg" viewBox="0 0 280 280">
+          <circle cx="140" cy="150" r="80" fill="currentColor" fill-opacity=".08" class="pulseGlow"/>
+          <rect x="50" y="70" width="180" height="130" rx="14" fill="none" stroke="currentColor" stroke-width="2" stroke-opacity=".55"/>
+          <line x1="50" y1="100" x2="230" y2="100" stroke="currentColor" stroke-width="1.4" stroke-opacity=".4"/>
+          <circle cx="66" cy="85" r="3.2" fill="currentColor" fill-opacity=".6"/>
+          <circle cx="78" cy="85" r="3.2" fill="currentColor" fill-opacity=".4"/>
+          <circle cx="90" cy="85" r="3.2" fill="currentColor" fill-opacity=".25"/>
+          <rect x="68" y="118" width="100" height="10" rx="5" fill="currentColor" fill-opacity=".25"/>
+          <rect x="68" y="138" width="70" height="10" rx="5" fill="currentColor" fill-opacity=".18"/>
+          <rect x="68" y="160" width="120" height="26" rx="8" fill="currentColor" fill-opacity=".12"/>
+          <rect x="20" y="40" width="26" height="26" rx="7" fill="currentColor" fill-opacity=".45" class="floatA"/>
+          <rect x="226" y="180" width="20" height="20" rx="6" fill="currentColor" fill-opacity=".3" class="floatB"/>
+          <circle cx="244" cy="64" r="9" fill="currentColor" fill-opacity=".3" class="floatC"/>
+        </svg>
+      </div>
+    </div>
+    <nav class="pill-nav reveal" aria-label="Services en conception web">
+      <a class="pill" data-target="#wd-1" data-i18n="wd-1-pill">Site vitrine</a>
+      <a class="pill" data-target="#wd-2" data-i18n="wd-2-pill">Site vitrine + hébergement</a>
+      <a class="pill" data-target="#wd-3" data-i18n="wd-3-pill">E-commerce</a>
+      <a class="pill" data-target="#wd-4" data-i18n="wd-4-pill">Landing page</a>
+      <a class="pill" data-target="#wd-5" data-i18n="wd-5-pill">UI/UX</a>
+      <a class="pill" data-target="#wd-6" data-i18n="wd-6-pill">Refonte</a>
+      <a class="pill" data-target="#wd-7" data-i18n="wd-7-pill">Maintenance</a>
+      <a class="pill" data-target="#wd-8" data-i18n="wd-8-pill">Référencement</a>
+      <a class="pill" data-target="#wd-9" data-i18n="wd-9-pill">Responsive</a>
+    </nav>
+    <div class="service-grid">
+      <div id="wd-1" class="service-card glass reveal">
+        <div class="top"><span class="ic"><svg data-feather="monitor"></svg></span><h3 data-i18n="wd-1-t">Site vitrine (sans hébergement)</h3></div>
+        <p data-i18n="wd-1-d">Une présence institutionnelle claire qui présente votre activité et inspire confiance.</p>
+        <div class="card-foot"><span class="price" data-i18n="wd-1-p">200 $</span><button class="add-btn" data-accent="emeraude" aria-pressed="false"><svg data-feather="plus"></svg><span class="lbl" data-i18n="btn-add">Ajouter</span></button></div>
+      </div>
+      <div id="wd-2" class="service-card glass reveal">
+        <div class="top"><span class="ic"><svg data-feather="monitor"></svg></span><h3 data-i18n="wd-2-t">Site vitrine + hébergement (1 an)</h3></div>
+        <p data-i18n="wd-2-d">Même prestation, livrée en ligne et hébergée pendant un an pour démarrer sans souci technique.</p>
+        <div class="card-foot"><span class="price" data-i18n="wd-2-p">250 $</span><button class="add-btn" data-accent="emeraude" aria-pressed="false"><svg data-feather="plus"></svg><span class="lbl" data-i18n="btn-add">Ajouter</span></button></div>
+      </div>
+      <div id="wd-3" class="service-card glass reveal">
+        <div class="top"><span class="ic"><svg data-feather="shopping-cart"></svg></span><h3 data-i18n="wd-3-t">Site e-commerce</h3></div>
+        <p data-i18n="wd-3-d">Catalogue, panier et paiement réunis dans un parcours d'achat simple et rassurant.</p>
+        <div class="card-foot"><span class="price" data-i18n="wd-3-p">à partir de 400 $</span><button class="add-btn" data-accent="emeraude" aria-pressed="false"><svg data-feather="plus"></svg><span class="lbl" data-i18n="btn-add">Ajouter</span></button></div>
+      </div>
+      <div id="wd-4" class="service-card glass reveal">
+        <div class="top"><span class="ic"><svg data-feather="zap"></svg></span><h3 data-i18n="wd-4-t">Landing page</h3></div>
+        <p data-i18n="wd-4-d">Une page unique, focalisée sur une offre et un seul objectif de conversion.</p>
+        <div class="card-foot"><span class="price" data-i18n="wd-4-p">90 $</span><button class="add-btn" data-accent="emeraude" aria-pressed="false"><svg data-feather="plus"></svg><span class="lbl" data-i18n="btn-add">Ajouter</span></button></div>
+      </div>
+      <div id="wd-5" class="service-card glass reveal">
+        <div class="top"><span class="ic"><svg data-feather="sliders"></svg></span><h3 data-i18n="wd-5-t">Conception UI/UX</h3></div>
+        <p data-i18n="wd-5-d">Des parcours pensés pour l'utilisateur avant d'être pensés pour l'écran.</p>
+        <div class="card-foot"><span class="price" data-i18n="wd-5-p">à partir de 150 $</span><button class="add-btn" data-accent="emeraude" aria-pressed="false"><svg data-feather="plus"></svg><span class="lbl" data-i18n="btn-add">Ajouter</span></button></div>
+      </div>
+      <div id="wd-6" class="service-card glass reveal">
+        <div class="top"><span class="ic"><svg data-feather="refresh-cw"></svg></span><h3 data-i18n="wd-6-t">Refonte &amp; migration</h3></div>
+        <p data-i18n="wd-6-d">Un site existant remis à niveau sans perdre son contenu ni son référencement.</p>
+        <div class="card-foot"><span class="price" data-i18n="wd-6-p">à partir de 180 $</span><button class="add-btn" data-accent="emeraude" aria-pressed="false"><svg data-feather="plus"></svg><span class="lbl" data-i18n="btn-add">Ajouter</span></button></div>
+      </div>
+      <div id="wd-7" class="service-card glass reveal">
+        <div class="top"><span class="ic"><svg data-feather="tool"></svg></span><h3 data-i18n="wd-7-t">Maintenance web</h3></div>
+        <p data-i18n="wd-7-d">Mises à jour, corrections et suivi technique pour un site fiable dans le temps.</p>
+        <div class="card-foot"><span class="price" data-i18n="wd-7-p">30 $ / mois</span><button class="add-btn" data-accent="emeraude" aria-pressed="false"><svg data-feather="plus"></svg><span class="lbl" data-i18n="btn-add">Ajouter</span></button></div>
+      </div>
+      <div id="wd-8" class="service-card glass reveal">
+        <div class="top"><span class="ic"><svg data-feather="search"></svg></span><h3 data-i18n="wd-8-t">Référencement (SEO)</h3></div>
+        <p data-i18n="wd-8-d">Structure et contenu optimisés pour être trouvé sur les moteurs de recherche.</p>
+        <div class="card-foot"><span class="price" data-i18n="wd-8-p">à partir de 100 $</span><button class="add-btn" data-accent="emeraude" aria-pressed="false"><svg data-feather="plus"></svg><span class="lbl" data-i18n="btn-add">Ajouter</span></button></div>
+      </div>
+      <div id="wd-9" class="service-card glass reveal">
+        <div class="top"><span class="ic"><svg data-feather="smartphone"></svg></span><h3 data-i18n="wd-9-t">Intégration responsive</h3></div>
+        <p data-i18n="wd-9-d">Un affichage cohérent sur mobile, tablette et ordinateur, sans compromis.</p>
+        <div class="card-foot"><span class="price" data-i18n="wd-9-p">à partir de 40 $</span><button class="add-btn" data-accent="emeraude" aria-pressed="false"><svg data-feather="plus"></svg><span class="lbl" data-i18n="btn-add">Ajouter</span></button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= APPLICATIONS ================= -->
+<section id="applications" class="dept" data-dept-label="Conception d'applications" data-accent="cobalt" style="--accent:var(--cobalt); --accent-soft:var(--cobalt-soft); --accent-glow:var(--cobalt-glow);">
+  <div class="particles" aria-hidden="true"><span style="left:10%;animation-delay:-3s;"></span><span style="left:26%;animation-delay:-8s;"></span><span style="left:42%;animation-delay:-1s;"></span><span style="left:58%;animation-delay:-12s;"></span><span style="left:75%;animation-delay:-6s;"></span><span style="left:90%;animation-delay:-9s;"></span></div>
+  <div class="wrap">
+    <div class="dept-head">
+      <div class="intro reveal">
+        <p class="eyebrow" data-i18n="dept-eyebrow">Expertise</p>
+        <h2><svg data-feather="cpu"></svg><span data-i18n="nav-apps">Conception d'applications</span></h2>
+        <p data-i18n="intro-app">Des applications mobiles, web ou de bureau construites sur des bases solides — du prototype testable au produit maintenu sur la durée.</p>
+      </div>
+      <div class="dept-art reveal" aria-hidden="true">
+        <svg class="dept-art-svg" viewBox="0 0 280 280">
+          <circle cx="140" cy="140" r="80" fill="currentColor" fill-opacity=".08" class="pulseGlow"/>
+          <rect x="100" y="50" width="80" height="180" rx="20" fill="none" stroke="currentColor" stroke-width="2" stroke-opacity=".55"/>
+          <rect x="128" y="62" width="24" height="6" rx="3" fill="currentColor" fill-opacity=".4"/>
+          <line x1="128" y1="216" x2="152" y2="216" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-opacity=".4"/>
+          <rect x="34" y="60" width="34" height="34" rx="9" fill="currentColor" fill-opacity=".4" class="floatA"/>
+          <rect x="210" y="40" width="28" height="28" rx="8" fill="currentColor" fill-opacity=".3" class="floatB"/>
+          <rect x="200" y="190" width="30" height="30" rx="9" fill="currentColor" fill-opacity=".3" class="floatC"/>
+          <rect x="36" y="190" width="24" height="24" rx="7" fill="currentColor" fill-opacity=".22" class="floatA"/>
+        </svg>
+      </div>
+    </div>
+    <nav class="pill-nav reveal" aria-label="Services en conception d'applications">
+      <a class="pill" data-target="#app-1" data-i18n="app-1-pill">Mobile</a>
+      <a class="pill" data-target="#app-2" data-i18n="app-2-pill">Application web</a>
+      <a class="pill" data-target="#app-3" data-i18n="app-3-pill">Bureau</a>
+      <a class="pill" data-target="#app-4" data-i18n="app-4-pill">Prototype &amp; MVP</a>
+      <a class="pill" data-target="#app-5" data-i18n="app-5-pill">Back-end &amp; API</a>
+      <a class="pill" data-target="#app-6" data-i18n="app-6-pill">Maintenance</a>
+      <a class="pill" data-target="#app-7" data-i18n="app-7-pill">Architecture</a>
+    </nav>
+    <div class="service-grid">
+      <div id="app-1" class="service-card glass reveal">
+        <div class="top"><span class="ic"><svg data-feather="smartphone"></svg></span><h3 data-i18n="app-1-t">Applications mobiles</h3></div>
+        <p data-i18n="app-1-d">Applications iOS et Android pensées pour un usage quotidien fluide.</p>
+        <div class="card-foot"><span class="price" data-i18n="app-1-p">à partir de 600 $</span><button class="add-btn" data-accent="cobalt" aria-pressed="false"><svg data-feather="plus"></svg><span class="lbl" data-i18n="btn-add">Ajouter</span></button></div>
+      </div>
+      <div id="app-2" class="service-card glass reveal">
+        <div class="top"><span class="ic"><svg data-feather="code"></svg></span><h3 data-i18n="app-2-t">Applications web</h3></div>
+        <p data-i18n="app-2-d">Des outils accessibles depuis un navigateur, sans installation pour l'utilisateur.</p>
+        <div class="card-foot"><span class="price" data-i18n="app-2-p">à partir de 450 $</span><button class="add-btn" data-accent="cobalt" aria-pressed="false"><svg data-feather="plus"></svg><span class="lbl" data-i18n="btn-add">Ajouter</span></button></div>
+      </div>
+      <div id="app-3" class="service-card glass reveal">
+        <div class="top"><span class="ic"><svg data-feather="monitor"></svg></span><h3 data-i18n="app-3-t">Applications de bureau</h3></div>
+        <p data-i18n="app-3-d">Des logiciels installés, adaptés aux besoins internes d'une équipe ou d'une entreprise.</p>
+        <div class="card-foot"><span class="price" data-i18n="app-3-p">à partir de 500 $</span><button class="add-btn" data-accent="cobalt" aria-pressed="false"><svg data-feather="plus"></svg><span class="lbl" data-i18n="btn-add">Ajouter</span></button></div>
+      </div>
+      <div id="app-4" class="service-card glass reveal">
+        <div class="top"><span class="ic"><svg data-feather="zap"></svg></span><h3 data-i18n="app-4-t">Prototypage &amp; MVP</h3></div>
+        <p data-i18n="app-4-d">Une première version fonctionnelle pour valider une idée avant d'investir davantage.</p>
+        <div class="card-foot"><span class="price" data-i18n="app-4-p">à partir de 150 $</span><button class="add-btn" data-accent="cobalt" aria-pressed="false"><svg data-feather="plus"></svg><span class="lbl" data-i18n="btn-add">Ajouter</span></button></div>
+      </div>
+      <div id="app-5" class="service-card glass reveal">
+        <div class="top"><span class="ic"><svg data-feather="server"></svg></span><h3 data-i18n="app-5-t">Back-end &amp; intégration API</h3></div>
+        <p data-i18n="app-5-d">La logique et les connexions qui font fonctionner l'application en coulisses.</p>
+        <div class="card-foot"><span class="price" data-i18n="app-5-p">à partir de 300 $</span><button class="add-btn" data-accent="cobalt" aria-pressed="false"><svg data-feather="plus"></svg><span class="lbl" data-i18n="btn-add">Ajouter</span></button></div>
+      </div>
+      <div id="app-6" class="service-card glass reveal">
+        <div class="top"><span class="ic"><svg data-feather="refresh-ccw"></svg></span><h3 data-i18n="app-6-t">Maintenance évolutive</h3></div>
+        <p data-i18n="app-6-d">Correctifs et nouvelles fonctionnalités ajoutés au rythme des besoins réels.</p>
+        <div class="card-foot"><span class="price" data-i18n="app-6-p">50 $ / mois</span><button class="add-btn" data-accent="cobalt" aria-pressed="false"><svg data-feather="plus"></svg><span class="lbl" data-i18n="btn-add">Ajouter</span></button></div>
+      </div>
+      <div id="app-7" class="service-card glass reveal">
+        <div class="top"><span class="ic"><svg data-feather="git-branch"></svg></span><h3 data-i18n="app-7-t">Architecture logicielle</h3></div>
+        <p data-i18n="app-7-d">Des fondations techniques choisies pour durer et pour évoluer sans tout reconstruire.</p>
+        <div class="card-foot"><span class="price" data-i18n="app-7-p">à partir de 100 $</span><button class="add-btn" data-accent="cobalt" aria-pressed="false"><svg data-feather="plus"></svg><span class="lbl" data-i18n="btn-add">Ajouter</span></button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TELECOM ================= -->
+<section id="telecom" class="dept" data-dept-label="Télécommunication" data-accent="lagon" style="--accent:var(--lagon); --accent-soft:var(--lagon-soft); --accent-glow:var(--lagon-glow);">
+  <div class="particles" aria-hidden="true"><span style="left:14%;animation-delay:-5s;"></span><span style="left:28%;animation-delay:-1s;"></span><span style="left:44%;animation-delay:-9s;"></span><span style="left:62%;animation-delay:-3s;"></span><span style="left:78%;animation-delay:-11s;"></span><span style="left:94%;animation-delay:-7s;"></span></div>
+  <div class="wrap">
+    <div class="dept-head">
+      <div class="intro reveal">
+        <p class="eyebrow" data-i18n="dept-eyebrow">Expertise</p>
+        <h2><svg data-feather="wifi"></svg><span data-i18n="nav-telecom">Télécommunication</span></h2>
+        <p data-i18n="intro-tc">Des réseaux fiables et sécurisés : câblage, téléphonie, connectivité et infrastructure, installés et documentés pour durer.</p>
+      </div>
+      <div class="dept-art reveal" aria-hidden="true">
+        <svg class="dept-art-svg" viewBox="0 0 280 280">
+          <circle cx="90" cy="170" r="6" fill="currentColor"/>
+          <circle cx="90" cy="170" r="30" fill="none" stroke="currentColor" stroke-width="2" class="ping" style="animation-delay:0s"/>
+          <circle cx="90" cy="170" r="30" fill="none" stroke="currentColor" stroke-width="2" class="ping" style="animation-delay:1.3s"/>
+          <circle cx="90" cy="170" r="30" fill="none" stroke="currentColor" stroke-width="2" class="ping" style="animation-delay:2.6s"/>
+          <circle cx="200" cy="90" r="5" fill="currentColor" fill-opacity=".6" class="floatA"/>
+          <circle cx="220" cy="150" r="4" fill="currentColor" fill-opacity=".5" class="floatB"/>
+          <line x1="90" y1="170" x2="200" y2="90" stroke="currentColor" stroke-width="1.4" stroke-opacity=".3"/>
+          <line x1="90" y1="170" x2="220" y2="150" stroke="currentColor" stroke-width="1.4" stroke-opacity=".3"/>
+        </svg>
+      </div>
+    </div>
+    <nav class="pill-nav reveal" aria-label="Services en télécommunication">
+      <a class="pill" data-target="#tc-1" data-i18n="tc-1-pill">Réseaux LAN/WAN</a>
+      <a class="pill" data-target="#tc-2" data-i18n="tc-2-pill">Téléphonie IP</a>
+      <a class="pill" data-target="#tc-3" data-i18n="tc-3-pill">Vidéosurveillance</a>
+      <a class="pill" data-target="#tc-4" data-i18n="tc-4-pill">Connectivité</a>
+      <a class="pill" data-target="#tc-5" data-i18n="tc-5-pill">Infrastructure</a>
+      <a class="pill" data-target="#tc-6" data-i18n="tc-6-pill">Support technique</a>
+      <a class="pill" data-target="#tc-7" data-i18n="tc-7-pill">Starlink</a>
+      <a class="pill" data-target="#tc-8" data-i18n="tc-8-pill">Radio VHF/UHF</a>
+    </nav>
+    <div class="service-grid">
+      <div id="tc-1" class="service-card glass reveal">
+        <div class="top"><span class="ic"><svg data-feather="share-2"></svg></span><h3 data-i18n="tc-1-t">Câblage &amp; réseaux LAN/WAN</h3></div>
+        <p data-i18n="tc-1-d">Installation et structuration du réseau informatique d'un bureau ou d'un site.</p>
+        <div class="card-foot"><span class="price" data-i18n="tc-1-p">à partir de 150 $</span><button class="add-btn" data-accent="lagon" aria-pressed="false"><svg data-feather="plus"></svg><span class="lbl" data-i18n="btn-add">Ajouter</span></button></div>
+      </div>
+      <div id="tc-2" class="service-card glass reveal">
+        <div class="top"><span class="ic"><svg data-feather="phone-call"></svg></span><h3 data-i18n="tc-2-t">Téléphonie IP / VoIP</h3></div>
+        <p data-i18n="tc-2-d">Des lignes téléphoniques modernes, économiques et faciles à faire évoluer.</p>
+        <div class="card-foot"><span class="price" data-i18n="tc-2-p">à partir de 120 $</span><button class="add-btn" data-accent="lagon" aria-pressed="false"><svg data-feather="plus"></svg><span class="lbl" data-i18n="btn-add">Ajouter</span></button></div>
+      </div>
+      <div id="tc-3" class="service-card glass reveal">
+        <div class="top"><span class="ic"><svg data-feather="shield"></svg></span><h3 data-i18n="tc-3-t">Vidéosurveillance &amp; sécurité réseau</h3></div>
+        <p data-i18n="tc-3-d">Caméras et protections réseau pour sécuriser un site et ses accès.</p>
+        <div class="card-foot"><span class="price" data-i18n="tc-3-p">à partir de 200 $</span><button class="add-btn" data-accent="lagon" aria-pressed="false"><svg data-feather="plus"></svg><span class="lbl" data-i18n="btn-add">Ajouter</span></button></div>
+      </div>
+      <div id="tc-4" class="service-card glass reveal">
+        <div class="top"><span class="ic"><svg data-feather="wifi"></svg></span><h3 data-i18n="tc-4-t">Connectivité internet &amp; fibre</h3></div>
+        <p data-i18n="tc-4-d">Une connexion stable, dimensionnée pour l'usage réel de l'organisation.</p>
+        <div class="card-foot"><span class="price" data-i18n="tc-4-p">à partir de 80 $</span><button class="add-btn" data-accent="lagon" aria-pressed="false"><svg data-feather="plus"></svg><span class="lbl" data-i18n="btn-add">Ajouter</span></button></div>
+      </div>
+      <div id="tc-5" class="service-card glass reveal">
+        <div class="top"><span class="ic"><svg data-feather="server"></svg></span><h3 data-i18n="tc-5-t">Infrastructure télécom</h3></div>
+        <p data-i18n="tc-5-d">Serveurs, antennes et équipements installés selon les normes du secteur.</p>
+        <div class="card-foot"><span class="price" data-i18n="tc-5-p">Sur devis</span><button class="add-btn" data-accent="lagon" aria-pressed="false"><svg data-feather="plus"></svg><span class="lbl" data-i18n="btn-add">Ajouter</span></button></div>
+      </div>
+      <div id="tc-6" class="service-card glass reveal">
+        <div class="top"><span class="ic"><svg data-feather="life-buoy"></svg></span><h3 data-i18n="tc-6-t">Support &amp; maintenance technique</h3></div>
+        <p data-i18n="tc-6-d">Une assistance réactive en cas de panne, avec suivi documenté des interventions.</p>
+        <div class="card-foot"><span class="price" data-i18n="tc-6-p">40 $ / mois</span><button class="add-btn" data-accent="lagon" aria-pressed="false"><svg data-feather="plus"></svg><span class="lbl" data-i18n="btn-add">Ajouter</span></button></div>
+      </div>
+      <div id="tc-7" class="service-card glass reveal">
+        <div class="top"><span class="ic"><svg data-feather="cloud"></svg></span><h3 data-i18n="tc-7-t">Installation Starlink</h3></div>
+        <p data-i18n="tc-7-d">Mise en service et configuration d'un kit internet satellite, pour une connexion là où la fibre n'arrive pas.</p>
+        <div class="card-foot"><span class="price" data-i18n="tc-7-p">à partir de 150 $ / installation</span><button class="add-btn" data-accent="lagon" aria-pressed="false"><svg data-feather="plus"></svg><span class="lbl" data-i18n="btn-add">Ajouter</span></button></div>
+      </div>
+      <div id="tc-8" class="service-card glass reveal">
+        <div class="top"><span class="ic"><svg data-feather="radio"></svg></span><h3 data-i18n="tc-8-t">Radiocommunication VHF/UHF</h3></div>
+        <p data-i18n="tc-8-d">Postes et réseaux radio pour des équipes qui doivent rester en contact sans dépendre du réseau mobile.</p>
+        <div class="card-foot"><span class="price" data-i18n="tc-8-p">à partir de 100 $</span><button class="add-btn" data-accent="lagon" aria-pressed="false"><svg data-feather="plus"></svg><span class="lbl" data-i18n="btn-add">Ajouter</span></button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GESTION DE PROJET ================= -->
+<section id="gestion-projet" class="dept" data-dept-label="Gestion de projet" data-accent="bronze" style="--accent:var(--bronze); --accent-soft:var(--bronze-soft); --accent-glow:var(--bronze-glow);">
+  <div class="particles" aria-hidden="true"><span style="left:9%;animation-delay:-6s;"></span><span style="left:24%;animation-delay:-2s;"></span><span style="left:40%;animation-delay:-10s;"></span><span style="left:57%;animation-delay:-4s;"></span><span style="left:74%;animation-delay:-8s;"></span><span style="left:91%;animation-delay:-1s;"></span></div>
+  <div class="wrap">
+    <div class="dept-head">
+      <div class="intro reveal">
+        <p class="eyebrow" data-i18n="dept-eyebrow">Expertise</p>
+        <h2><svg data-feather="compass"></svg><span data-i18n="nav-gestion">Gestion de projet</span></h2>
+        <p data-i18n="intro-gp">Un projet bien mené suit un cadre clair : objectifs définis, jalons suivis, risques anticipés et résultats mesurés — du cadrage initial au bilan final.</p>
+      </div>
+      <div class="dept-art reveal" aria-hidden="true">
+        <svg class="dept-art-svg" viewBox="0 0 280 280">
+          <path d="M30 230 C 90 230, 90 140, 150 140 S 230 90, 250 40" fill="none" stroke="currentColor" stroke-width="2" stroke-opacity=".4" stroke-dasharray="2 8" stroke-linecap="round"/>
+          <circle cx="30" cy="230" r="6" fill="currentColor" fill-opacity=".5"/>
+          <circle cx="150" cy="140" r="6" fill="currentColor" fill-opacity=".5"/>
+          <circle cx="250" cy="40" r="7" fill="currentColor" class="pulseGlow"/>
+          <circle cx="30" cy="230" r="5" fill="currentColor" class="traveler"/>
+        </svg>
+      </div>
+    </div>
+    <nav class="pill-nav reveal" aria-label="Étapes de gestion de projet">
+      <a class="pill" data-target="#gp-1" data-i18n="gp-1-pill">01 Cadrage</a>
+      <a class="pill" data-target="#gp-2" data-i18n="gp-2-pill">02 Planification</a>
+      <a class="pill" data-target="#gp-3" data-i18n="gp-3-pill">03 Coordination</a>
+      <a class="pill" data-target="#gp-4" data-i18n="gp-4-pill">04 Budget</a>
+      <a class="pill" data-target="#gp-5" data-i18n="gp-5-pill">05 Risques</a>
+      <a class="pill" data-target="#gp-6" data-i18n="gp-6-pill">06 Reporting</a>
+      <a class="pill" data-target="#gp-7" data-i18n="gp-7-pill">07 Accompagnement</a>
+    </nav>
+    <div class="service-grid">
+      <div id="gp-1" class="service-card glass reveal">
+        <div class="top"><span class="num">01</span><h3 data-i18n="gp-1-t">Cadrage &amp; définition du besoin</h3></div>
+        <p data-i18n="gp-1-d">Objectifs, périmètre et contraintes clarifiés avant tout démarrage.</p>
+        <div class="card-foot"><span class="price" data-i18n="gp-1-p">80 $</span><button class="add-btn" data-accent="bronze" aria-pressed="false"><svg data-feather="plus"></svg><span class="lbl" data-i18n="btn-add">Ajouter</span></button></div>
+      </div>
+      <div id="gp-2" class="service-card glass reveal">
+        <div class="top"><span class="num">02</span><h3 data-i18n="gp-2-t">Planification &amp; pilotage</h3></div>
+        <p data-i18n="gp-2-d">Un calendrier réaliste, des jalons identifiés et un suivi d'avancement régulier.</p>
+        <div class="card-foot"><span class="price" data-i18n="gp-2-p">à partir de 150 $</span><button class="add-btn" data-accent="bronze" aria-pressed="false"><svg data-feather="plus"></svg><span class="lbl" data-i18n="btn-add">Ajouter</span></button></div>
+      </div>
+      <div id="gp-3" class="service-card glass reveal">
+        <div class="top"><span class="num">03</span><h3 data-i18n="gp-3-t">Coordination d'équipe &amp; parties prenantes</h3></div>
+        <p data-i18n="gp-3-d">Une communication fluide entre tous les intervenants impliqués dans le projet.</p>
+        <div class="card-foot"><span class="price" data-i18n="gp-3-p">à partir de 120 $</span><button class="add-btn" data-accent="bronze" aria-pressed="false"><svg data-feather="plus"></svg><span class="lbl" data-i18n="btn-add">Ajouter</span></button></div>
+      </div>
+      <div id="gp-4" class="service-card glass reveal">
+        <div class="top"><span class="num">04</span><h3 data-i18n="gp-4-t">Suivi budgétaire &amp; ressources</h3></div>
+        <p data-i18n="gp-4-d">Des dépenses suivies poste par poste pour rester dans le cadre prévu.</p>
+        <div class="card-foot"><span class="price" data-i18n="gp-4-p">à partir de 100 $</span><button class="add-btn" data-accent="bronze" aria-pressed="false"><svg data-feather="plus"></svg><span class="lbl" data-i18n="btn-add">Ajouter</span></button></div>
+      </div>
+      <div id="gp-5" class="service-card glass reveal">
+        <div class="top"><span class="num">05</span><h3 data-i18n="gp-5-t">Gestion des risques</h3></div>
+        <p data-i18n="gp-5-d">Les imprévus identifiés en amont, avec une réponse préparée pour chacun.</p>
+        <div class="card-foot"><span class="price" data-i18n="gp-5-p">à partir de 80 $</span><button class="add-btn" data-accent="bronze" aria-pressed="false"><svg data-feather="plus"></svg><span class="lbl" data-i18n="btn-add">Ajouter</span></button></div>
+      </div>
+      <div id="gp-6" class="service-card glass reveal">
+        <div class="top"><span class="num">06</span><h3 data-i18n="gp-6-t">Reporting &amp; performance</h3></div>
+        <p data-i18n="gp-6-d">Des points d'étape clairs, sans jargon, pour décider en connaissance de cause.</p>
+        <div class="card-foot"><span class="price" data-i18n="gp-6-p">à partir de 60 $</span><button class="add-btn" data-accent="bronze" aria-pressed="false"><svg data-feather="plus"></svg><span class="lbl" data-i18n="btn-add">Ajouter</span></button></div>
+      </div>
+      <div id="gp-7" class="service-card glass reveal">
+        <div class="top"><span class="num">07</span><h3 data-i18n="gp-7-t">Accompagnement stratégique &amp; conseil</h3></div>
+        <p data-i18n="gp-7-d">Un regard extérieur pour challenger les décisions et sécuriser la trajectoire.</p>
+        <div class="card-foot"><span class="price" data-i18n="gp-7-p">Sur devis</span><button class="add-btn" data-accent="bronze" aria-pressed="false"><svg data-feather="plus"></svg><span class="lbl" data-i18n="btn-add">Ajouter</span></button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section id="apropos" class="about" data-accent="signal" style="--accent:var(--signal);">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow" data-i18n="about-eyebrow">Pourquoi CyroLab</p>
+      <h2 data-i18n="about-h2">Un seul interlocuteur, cinq expertises coordonnées</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-card glass reveal"><span class="ic"><svg data-feather="user-check"></svg></span><h3 data-i18n="about-1-t">Un point de contact unique</h3><p data-i18n="about-1-d">Vous coordonnez un projet, pas cinq prestataires. Un seul interlocuteur suit chaque domaine concerné.</p></div>
+      <div class="about-card glass reveal"><span class="ic"><svg data-feather="clipboard"></svg></span><h3 data-i18n="about-2-t">Une méthode documentée</h3><p data-i18n="about-2-d">Chaque projet est cadré, planifié et suivi avec la même rigueur, du premier brief à la livraison.</p></div>
+      <div class="about-card glass reveal"><span class="ic"><svg data-feather="layers"></svg></span><h3 data-i18n="about-3-t">Des compétences qui se complètent</h3><p data-i18n="about-3-d">Design, technique et stratégie avancent ensemble plutôt qu'en silos, pour un résultat cohérent.</p></div>
+      <div class="about-card glass reveal"><span class="ic"><svg data-feather="globe"></svg></span><h3 data-i18n="about-4-t">À distance ou sur le terrain</h3><p data-i18n="about-4-d">Les prestations numériques se pilotent à distance ; les interventions techniques (réseaux, télécom) se font directement sur site.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section id="contact" class="contact" data-accent="signal">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow" data-i18n="contact-eyebrow">Contact</p>
+      <h2 data-i18n="cta-discuter-long">Discutons de votre projet</h2>
+      <p data-i18n="contact-p">Décrivez votre besoin — ou composez votre devis depuis les sections de services, puis envoyez-le ici.</p>
+    </div>
+    <div class="contact-grid">
+      <form class="contact-form glass reveal" id="contactForm">
+        <div class="field"><label for="nom" data-i18n="lbl-nom">Nom complet</label><input id="nom" type="text" required placeholder="Votre nom" data-i18n-ph="ph-nom"></div>
+        <div class="field"><label for="email" data-i18n="lbl-email">Email</label><input id="email" type="email" required placeholder="vous@exemple.com"></div>
+        <div class="field">
+          <label for="service" data-i18n="lbl-service">Service souhaité</label>
+          <select id="service">
+            <option data-i18n="nav-design">Design graphique</option>
+            <option data-i18n="nav-web">Conception web</option>
+            <option data-i18n="nav-apps">Conception d'applications</option>
+            <option data-i18n="nav-telecom">Télécommunication</option>
+            <option data-i18n="nav-gestion">Gestion de projet</option>
+            <option data-i18n="opt-plusieurs">Plusieurs domaines / je ne sais pas encore</option>
+          </select>
+        </div>
+        <div class="field"><label for="message" data-i18n="lbl-message">Message</label><textarea id="message" required placeholder="Décrivez votre projet en quelques lignes…" data-i18n-ph="ph-message"></textarea></div>
+        <button type="submit" class="btn btn-primary"><span data-i18n="btn-send">Envoyer la demande</span> <svg data-feather="send"></svg></button>
+        <p class="form-note" data-i18n="form-note">Aucune donnée n'est transmise pour le moment — ce formulaire doit être relié à une adresse d'envoi (étape suivante).</p>
+        <p class="form-note" data-i18n="form-note-payment">Plusieurs modes de paiement sont acceptés : Mobile Money (Airtel Money, Orange Money, M-Pesa), virement bancaire, espèces, et PayPal pour les clients à l'international.</p>
+        <div class="form-success" id="formSuccess"><svg data-feather="check-circle"></svg> <span data-i18n="form-success">Demande prête à être envoyée — connectez le formulaire pour qu'elle parte réellement.</span></div>
+      </form>
+      <div class="contact-info">
+        <div class="info-card glass reveal"><span class="ic"><svg data-feather="mail"></svg></span><div><h4 data-i18n="info-email">Email</h4><p>contact@cyrolab.pro</p></div></div>
+        <div class="info-card glass reveal"><span class="ic"><svg data-feather="phone"></svg></span><div><h4 data-i18n="info-phone">Téléphone</h4><p><a href="tel:+243999024379">+243 999 024 379</a></p></div></div>
+        <div class="info-card glass reveal is-wa">
+          <span class="ic">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M12 3C7.03 3 3 6.91 3 11.74c0 2.02.74 3.88 1.99 5.37L4 21l4.05-1.06a9.6 9.6 0 0 0 3.95.85c4.97 0 9-3.91 9-8.74S16.97 3 12 3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+              <path d="M8.7 9.6c.3-.7.9-.6 1.4-.6.3 0 .5.1.6.4l.6 1.4c.1.3 0 .5-.2.7l-.5.5c.4 1 1.2 1.8 2.2 2.2l.5-.5c.2-.2.4-.3.7-.2l1.4.6c.3.1.4.3.4.6 0 .5.1 1.1-.6 1.4-.8.4-1.8.3-2.9-.3-1.4-.8-2.6-2-3.4-3.4-.6-1.1-.7-2.1-.2-2.8Z" fill="currentColor"/>
+            </svg>
+          </span>
+          <div><h4>WhatsApp</h4><p><a href="https://wa.me/243999024379" target="_blank" rel="noopener">+243 999 024 379</a></p></div>
+        </div>
+        <div class="info-card glass reveal">
+          <span class="ic"><svg data-feather="credit-card"></svg></span>
+          <div><h4 data-i18n="info-payment-t">Modes de paiement</h4><p data-i18n="info-payment-d">Mobile Money, virement bancaire, espèces, PayPal (international)</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <div class="footer-brand">
+      <svg viewBox="0 0 40 40" aria-hidden="true">
+        <path d="M27 9 A13 13 0 1 0 27 31" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"/>
+        <line x1="27" y1="9" x2="31" y2="20" stroke="url(#cyroGrad)" stroke-width="1.6" stroke-linecap="round"/>
+        <line x1="27" y1="31" x2="31" y2="20" stroke="url(#cyroGrad)" stroke-width="1.6" stroke-linecap="round"/>
+        <circle cx="31" cy="20" r="3.5" fill="url(#cyroGrad)"/>
+      </svg>
+      CyroLab
+    </div>
+    <nav class="footer-nav" aria-label="Navigation pied de page">
+      <a href="#design-graphique" data-i18n="nav-design">Design graphique</a>
+      <a href="#web-design" data-i18n="nav-web">Conception web</a>
+      <a href="#applications" data-i18n="nav-apps">Applications</a>
+      <a href="#telecom" data-i18n="nav-telecom">Télécommunication</a>
+      <a href="#gestion-projet" data-i18n="nav-gestion">Gestion de projet</a>
+      <a href="#contact" data-i18n="nav-contact">Contact</a>
+    </nav>
+    <p class="footer-meta">© <span id="year"></span> CyroLab · +243 999 024 379</p>
+  </div>
+</footer>
+
+<!-- ================= ACTIONS FLOTTANTES ================= -->
+<a class="fab-whatsapp" href="https://wa.me/243999024379?text=Bonjour%20CyroLab%2C%20je%20souhaite%20discuter%20d%27un%20projet." target="_blank" rel="noopener" aria-label="Contacter CyroLab sur WhatsApp">
+  <svg viewBox="0 0 24 24" fill="none">
+    <path d="M12 3C7.03 3 3 6.91 3 11.74c0 2.02.74 3.88 1.99 5.37L4 21l4.05-1.06a9.6 9.6 0 0 0 3.95.85c4.97 0 9-3.91 9-8.74S16.97 3 12 3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M8.7 9.6c.3-.7.9-.6 1.4-.6.3 0 .5.1.6.4l.6 1.4c.1.3 0 .5-.2.7l-.5.5c.4 1 1.2 1.8 2.2 2.2l.5-.5c.2-.2.4-.3.7-.2l1.4.6c.3.1.4.3.4.6 0 .5.1 1.1-.6 1.4-.8.4-1.8.3-2.9-.3-1.4-.8-2.6-2-3.4-3.4-.6-1.1-.7-2.1-.2-2.8Z" fill="currentColor"/>
+  </svg>
+</a>
+
+<button class="fab-devis" id="fabDevis" aria-haspopup="true" aria-controls="devisPanel">
+  <svg data-feather="shopping-bag"></svg>
+  <span class="lbl-full" data-i18n="fab-devis">Mon devis</span>
+  <span class="badge zero" id="fabBadge">0</span>
+</button>
+
+<div class="devis-overlay" id="devisOverlay"></div>
+<aside class="devis-panel" id="devisPanel" aria-label="Récapitulatif du devis">
+  <button class="icon-btn devis-close" id="devisClose" data-i18n-aria="aria-close" aria-label="Fermer"><svg data-feather="x"></svg></button>
+  <h3 data-i18n="devis-title">Votre devis</h3>
+  <p class="sub" data-i18n="devis-sub">Les services sélectionnés depuis les pages d'expertise apparaissent ici.</p>
+  <div class="devis-list" id="devisList"><p class="devis-empty" data-i18n="devis-empty-init">Aucun service sélectionné pour le moment.</p></div>
+  <div class="devis-total" id="devisTotal"></div>
+  <button class="btn btn-primary" id="devisSend"><span data-i18n="devis-send">Demander ce devis</span> <svg data-feather="send"></svg></button>
+</aside>
+
+<script>
+/* ===================== TRADUCTION FR / EN ===================== */
+const I18N_EN = {
+ "nav-design": "Graphic design",
+ "nav-web": "Web design",
+ "nav-apps": "Applications",
+ "nav-telecom": "Telecommunications",
+ "nav-gestion": "Project management",
+ "nav-about": "About",
+ "cta-discuter-short": "Let's talk",
+ "cta-discuter-long": "Let's talk about your project",
+ "nav-contact": "Contact",
+ "dept-eyebrow": "Expertise",
+ "hero-eyebrow": "Multidisciplinary studio",
+ "hero-h1": "Five areas of expertise.<br>One studio.<br>A project that takes shape.",
+ "hero-lead": "CyroLab supports your project from concept to delivery: visual identity, web presence, applications, telecom infrastructure, and project management — coordinated by a single point of contact.",
+ "hero-cta1": "Explore services",
+ "hero-cta2": "Start a project",
+ "ov-eyebrow": "Our areas",
+ "ov-h2": "Choose the service that fits your need",
+ "ov-p": "Each area breaks down into specific services, each with a price — build your quote directly from the cards below.",
+ "ov-go": "See details ",
+ "ov-design-graphique-t": "Graphic design",
+ "ov-design-graphique-d": "Visual identity, print materials, and illustrations that give your brand a face.",
+ "ov-design-graphique-price": "from $15",
+ "ov-web-design-t": "Web design",
+ "ov-web-design-d": "Sites and platforms built to convert, from showcase site to online store.",
+ "ov-web-design-price": "from $90",
+ "ov-applications-t": "App development",
+ "ov-applications-d": "Mobile, web, and desktop applications, from prototype to maintained product.",
+ "ov-applications-price": "from $100",
+ "ov-telecom-t": "Telecommunications",
+ "ov-telecom-d": "Networks, telephony, and infrastructure for a connected, secure organization.",
+ "ov-telecom-price": "from $80",
+ "ov-gestion-projet-t": "Project management",
+ "ov-gestion-projet-d": "Scoping, planning, and coordination to deliver on time and on budget.",
+ "ov-gestion-projet-price": "from $80",
+ "intro-dg": "A consistent visual identity, from the logo to the smallest piece of communication. Every element is designed to stay recognizable, whether printed or on screen.",
+ "intro-wd": "A site that loads fast, makes sense at a glance, and converts. From an institutional showcase site to an online store, every page is built for its audience.",
+ "intro-app": "Mobile, web, or desktop applications built on solid foundations — from a testable prototype to a product maintained over time.",
+ "intro-tc": "Reliable, secure networks: cabling, telephony, connectivity, and infrastructure, installed and documented to last.",
+ "intro-gp": "A well-run project follows a clear framework: defined objectives, tracked milestones, anticipated risks, and measured results — from initial scoping to the final review.",
+ "dg-1-t": "Brand guidelines &amp; visual identity",
+ "dg-1-d": "Logo, palette, typefaces, and usage rules brought together in a single reference document.",
+ "dg-1-p": "from $120",
+ "dg-1-pill": "Brand guidelines",
+ "dg-2-t": "Logo design",
+ "dg-2-d": "A simple, memorable mark that works at full size and in miniature.",
+ "dg-2-p": "$60",
+ "dg-2-pill": "Logo",
+ "dg-3-t": "Flyers &amp; posters",
+ "dg-3-d": "Announcement and promotional materials, ready for print or digital use.",
+ "dg-3-p": "$20 / visual",
+ "dg-3-pill": "Flyers &amp; posters",
+ "dg-4-t": "Business cards",
+ "dg-4-d": "A professional first impression, consistent with the rest of your identity.",
+ "dg-4-p": "$20",
+ "dg-4-pill": "Business cards",
+ "dg-5-t": "Packaging &amp; labeling",
+ "dg-5-d": "Packaging that protects the product and reinforces brand recognition.",
+ "dg-5-p": "from $80",
+ "dg-5-pill": "Packaging",
+ "dg-6-t": "Brochures &amp; booklets",
+ "dg-6-d": "Detailed presentation documents for your offers, services, or reports.",
+ "dg-6-p": "from $60",
+ "dg-6-pill": "Brochures",
+ "dg-7-t": "Social media visuals",
+ "dg-7-d": "Visuals adapted for each platform, in a style recognizable from one post to the next.",
+ "dg-7-p": "$15 / post",
+ "dg-7-pill": "Social media",
+ "dg-8-t": "Illustration &amp; infographics",
+ "dg-8-d": "Original visuals and data turned into images that explain rather than just describe.",
+ "dg-8-p": "from $25",
+ "dg-8-pill": "Illustration",
+ "dg-9-t": "Editorial layout",
+ "dg-9-d": "Catalogs, magazines, and reports structured for a smooth read.",
+ "dg-9-p": "from $70",
+ "dg-9-pill": "Layout",
+ "wd-1-t": "Showcase website (no hosting)",
+ "wd-1-d": "A clear institutional presence that presents your business and builds trust.",
+ "wd-1-p": "$200",
+ "wd-1-pill": "Showcase site",
+ "wd-2-t": "Showcase website + hosting (1 year)",
+ "wd-2-d": "Same deliverable, launched online and hosted for a year so you can start without any technical hassle.",
+ "wd-2-p": "$250",
+ "wd-2-pill": "Site + hosting",
+ "wd-3-t": "E-commerce website",
+ "wd-3-d": "Catalog, cart, and checkout brought together in a simple, reassuring buying journey.",
+ "wd-3-p": "from $400",
+ "wd-3-pill": "E-commerce",
+ "wd-4-t": "Landing page",
+ "wd-4-d": "A single page focused on one offer and one conversion goal.",
+ "wd-4-p": "$90",
+ "wd-4-pill": "Landing page",
+ "wd-5-t": "UI/UX design",
+ "wd-5-d": "Journeys designed for the user before being designed for the screen.",
+ "wd-5-p": "from $150",
+ "wd-5-pill": "UI/UX",
+ "wd-6-t": "Redesign &amp; migration",
+ "wd-6-d": "An existing site brought up to standard without losing its content or its search ranking.",
+ "wd-6-p": "from $180",
+ "wd-6-pill": "Redesign",
+ "wd-7-t": "Website maintenance",
+ "wd-7-d": "Updates, fixes, and technical monitoring for a site you can rely on over time.",
+ "wd-7-p": "$30 / month",
+ "wd-7-pill": "Maintenance",
+ "wd-8-t": "Search engine optimization (SEO)",
+ "wd-8-d": "Structure and content optimized to be found on search engines.",
+ "wd-8-p": "from $100",
+ "wd-8-pill": "SEO",
+ "wd-9-t": "Responsive integration",
+ "wd-9-d": "A consistent display on mobile, tablet, and desktop, with no compromises.",
+ "wd-9-p": "from $40",
+ "wd-9-pill": "Responsive",
+ "app-1-t": "Mobile applications",
+ "app-1-d": "iOS and Android apps designed for smooth everyday use.",
+ "app-1-p": "from $600",
+ "app-1-pill": "Mobile",
+ "app-2-t": "Web applications",
+ "app-2-d": "Tools accessible from a browser, with nothing for the user to install.",
+ "app-2-p": "from $450",
+ "app-2-pill": "Web app",
+ "app-3-t": "Desktop applications",
+ "app-3-d": "Installed software tailored to the internal needs of a team or company.",
+ "app-3-p": "from $500",
+ "app-3-pill": "Desktop",
+ "app-4-t": "Prototyping &amp; MVP",
+ "app-4-d": "A first working version to validate an idea before investing further.",
+ "app-4-p": "from $150",
+ "app-4-pill": "Prototype &amp; MVP",
+ "app-5-t": "Back-end &amp; API integration",
+ "app-5-d": "The logic and connections that make the application work behind the scenes.",
+ "app-5-p": "from $300",
+ "app-5-pill": "Back-end &amp; API",
+ "app-6-t": "Ongoing maintenance",
+ "app-6-d": "Fixes and new features added at the pace of real needs.",
+ "app-6-p": "$50 / month",
+ "app-6-pill": "Maintenance",
+ "app-7-t": "Software architecture",
+ "app-7-d": "Technical foundations chosen to last and to evolve without rebuilding everything.",
+ "app-7-p": "from $100",
+ "app-7-pill": "Architecture",
+ "tc-1-t": "LAN/WAN cabling &amp; networks",
+ "tc-1-d": "Installation and structuring of an office or site's computer network.",
+ "tc-1-p": "from $150",
+ "tc-1-pill": "LAN/WAN networks",
+ "tc-2-t": "IP telephony / VoIP",
+ "tc-2-d": "Modern, cost-effective phone lines that are easy to scale.",
+ "tc-2-p": "from $120",
+ "tc-2-pill": "IP telephony",
+ "tc-3-t": "Video surveillance &amp; network security",
+ "tc-3-d": "Cameras and network protection to secure a site and its access points.",
+ "tc-3-p": "from $200",
+ "tc-3-pill": "Video surveillance",
+ "tc-4-t": "Internet &amp; fiber connectivity",
+ "tc-4-d": "A stable connection, sized for the organization's real usage.",
+ "tc-4-p": "from $80",
+ "tc-4-pill": "Connectivity",
+ "tc-5-t": "Telecom infrastructure",
+ "tc-5-d": "Servers, antennas, and equipment installed to industry standards.",
+ "tc-5-p": "Custom quote",
+ "tc-5-pill": "Infrastructure",
+ "tc-6-t": "Technical support &amp; maintenance",
+ "tc-6-d": "Responsive assistance in case of a breakdown, with documented follow-up on every call-out.",
+ "tc-6-p": "$40 / month",
+ "tc-6-pill": "Tech support",
+ "tc-7-t": "Starlink installation",
+ "tc-7-d": "Setup and configuration of a satellite internet kit, for a connection where fiber doesn't reach.",
+ "tc-7-p": "from $150 / installation",
+ "tc-7-pill": "Starlink",
+ "tc-8-t": "VHF/UHF radio communication",
+ "tc-8-d": "Radio sets and networks for teams that need to stay in touch without relying on the mobile network.",
+ "tc-8-p": "from $100",
+ "tc-8-pill": "VHF/UHF radio",
+ "gp-1-t": "Scoping &amp; needs assessment",
+ "gp-1-d": "Objectives, scope, and constraints clarified before anything starts.",
+ "gp-1-p": "$80",
+ "gp-1-pill": "01 Scoping",
+ "gp-2-t": "Planning &amp; oversight",
+ "gp-2-d": "A realistic schedule, clear milestones, and regular progress tracking.",
+ "gp-2-p": "from $150",
+ "gp-2-pill": "02 Planning",
+ "gp-3-t": "Team &amp; stakeholder coordination",
+ "gp-3-d": "Smooth communication between everyone involved in the project.",
+ "gp-3-p": "from $120",
+ "gp-3-pill": "03 Coordination",
+ "gp-4-t": "Budget &amp; resource tracking",
+ "gp-4-d": "Spending tracked line by line to stay within the agreed framework.",
+ "gp-4-p": "from $100",
+ "gp-4-pill": "04 Budget",
+ "gp-5-t": "Risk management",
+ "gp-5-d": "Potential issues identified in advance, each with a response ready.",
+ "gp-5-p": "from $80",
+ "gp-5-pill": "05 Risks",
+ "gp-6-t": "Reporting &amp; performance",
+ "gp-6-d": "Clear, jargon-free progress points so decisions can be made with confidence.",
+ "gp-6-p": "from $60",
+ "gp-6-pill": "06 Reporting",
+ "gp-7-t": "Strategic guidance &amp; advisory",
+ "gp-7-d": "An outside perspective to challenge decisions and keep the project on track.",
+ "gp-7-p": "Custom quote",
+ "gp-7-pill": "07 Advisory",
+ "about-eyebrow": "Why CyroLab",
+ "about-h2": "One point of contact, five coordinated areas of expertise",
+ "about-1-t": "A single point of contact",
+ "about-1-d": "You manage one project, not five vendors. A single point of contact follows every area involved.",
+ "about-2-t": "A documented method",
+ "about-2-d": "Every project is scoped, planned, and tracked with the same rigor, from the first brief to delivery.",
+ "about-3-t": "Skills that complement each other",
+ "about-3-d": "Design, technical work, and strategy move forward together rather than in silos, for a coherent result.",
+ "about-4-t": "Remote or on the ground",
+ "about-4-d": "Digital services are run remotely; technical work (networks, telecom) is carried out directly on site.",
+ "contact-eyebrow": "Contact",
+ "contact-p": "Describe what you need — or build your quote from the service sections, then send it here.",
+ "lbl-nom": "Full name",
+ "ph-nom": "Your name",
+ "lbl-email": "Email",
+ "lbl-service": "Service needed",
+ "opt-plusieurs": "Several areas / not sure yet",
+ "lbl-message": "Message",
+ "ph-message": "Describe your project in a few lines…",
+ "btn-send": "Send request",
+ "form-note": "No data is sent yet — this form still needs to be connected to a sending address (next step).",
+ "form-note-payment": "Several payment methods are accepted: Mobile Money (Airtel Money, Orange Money, M-Pesa), bank transfer, cash, and PayPal for international clients.",
+ "form-success": "Request ready to send — connect the form so it actually goes through.",
+ "info-phone": "Phone",
+ "info-payment-t": "Payment methods",
+ "info-payment-d": "Mobile Money, bank transfer, cash, PayPal (international)",
+ "fab-devis": "My quote",
+ "aria-close": "Close",
+ "devis-title": "Your quote",
+ "devis-sub": "Services selected from the expertise sections appear here.",
+ "devis-empty-init": "No services selected yet.",
+ "devis-send": "Send this quote",
+ "aria-theme": "Switch theme",
+ "aria-menu": "Open menu"
+};
+
+const STR = {
+  add: {fr:'Ajouter', en:'Add'},
+  added: {fr:'Ajouté', en:'Added'},
+  cartEmpty: {fr:"Aucun service sélectionné pour le moment. Ajoutez des services depuis les pages d'expertise.", en:'No services selected yet. Add services from the expertise sections.'},
+  total: {fr:'Total estimé', en:'Estimated total'},
+  indicativeNote: {fr:'Tarifs indicatifs — confirmés après échange avec CyroLab. Plusieurs modes de paiement acceptés (Mobile Money, virement, espèces, PayPal).', en:'Indicative pricing — confirmed after a conversation with CyroLab. Multiple payment methods accepted (Mobile Money, bank transfer, cash, PayPal).'},
+  recapHeader: {fr:'Services sélectionnés :', en:'Selected services:'},
+  recapTotal: {fr:'Total estimé', en:'Estimated total'},
+  recapCustom: {fr:' (+ prestations sur devis)', en:' (+ custom-quote services)'},
+  removeItem: {fr:'Retirer', en:'Remove'},
+};
+function t(key){ return STR[key][currentLang]; }
+function itemsSelectedLabel(n){
+  if (currentLang === 'en') return `${n} service${n===1?'':'s'} selected`;
+  return `${n} service${n===1?'':'s'} sélectionné${n===1?'':'s'}`;
+}
+function customNoteLabel(n){
+  if (currentLang === 'en') return `+ ${n} custom-quote service${n===1?'':'s'}, to be priced after scoping.`;
+  return `+ ${n} prestation${n===1?'':'s'} sur devis, à chiffrer après cadrage.`;
+}
+
+let currentLang = 'fr';
+document.querySelectorAll('[data-i18n]').forEach(el => { el.dataset.fr = el.innerHTML; });
+document.querySelectorAll('[data-i18n-ph]').forEach(el => { el.dataset.frPh = el.getAttribute('placeholder'); });
+document.querySelectorAll('[data-i18n-aria]').forEach(el => { el.dataset.frAria = el.getAttribute('aria-label'); });
+
+function setLanguage(lang){
+  currentLang = lang;
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    el.innerHTML = (lang === 'en' && I18N_EN[key]) ? I18N_EN[key] : el.dataset.fr;
+  });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+    const key = el.dataset.i18nPh;
+    el.setAttribute('placeholder', (lang === 'en' && I18N_EN[key]) ? I18N_EN[key] : el.dataset.frPh);
+  });
+  document.querySelectorAll('[data-i18n-aria]').forEach(el => {
+    const key = el.dataset.i18nAria;
+    el.setAttribute('aria-label', (lang === 'en' && I18N_EN[key]) ? I18N_EN[key] : el.dataset.frAria);
+  });
+  document.querySelectorAll('.lang-switch button').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+  document.querySelectorAll('.add-btn').forEach(btn => {
+    const card = btn.closest('.service-card');
+    const isActive = btn.classList.contains('active');
+    btn.querySelector('.lbl').textContent = isActive ? t('added') : t('add');
+  });
+  renderDevis();
+}
+
+document.querySelectorAll('.lang-switch button').forEach(btn => {
+  btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
+});
+
+feather.replace({ 'stroke-width': 1.75 });
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// En-tête : état "scrolled"
+const header = document.getElementById('siteHeader');
+window.addEventListener('scroll', () => { header.classList.toggle('scrolled', window.scrollY > 12); }, { passive: true });
+
+// Bascule clair / sombre
+const themeToggle = document.getElementById('themeToggle');
+themeToggle.addEventListener('click', () => {
+  const root = document.documentElement;
+  const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  root.setAttribute('data-theme', next);
+  themeToggle.setAttribute('aria-pressed', String(next === 'light'));
+});
+
+// Menu mobile
+const navToggle = document.getElementById('navToggle');
+const mobilePanel = document.getElementById('mobilePanel');
+navToggle.addEventListener('click', () => {
+  const open = mobilePanel.classList.toggle('open');
+  navToggle.setAttribute('aria-expanded', String(open));
+  navToggle.innerHTML = open ? '<svg data-feather="x"></svg>' : '<svg data-feather="menu"></svg>';
+  feather.replace({ 'stroke-width': 1.75 });
+});
+mobilePanel.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  mobilePanel.classList.remove('open');
+  navToggle.setAttribute('aria-expanded', 'false');
+  navToggle.innerHTML = '<svg data-feather="menu"></svg>';
+  feather.replace({ 'stroke-width': 1.75 });
+}));
+
+// Révélation au défilement
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('in-view'); io.unobserve(entry.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// Boule lumineuse qui suit le curseur, teintée selon la section visible
+const cursorGlow = document.getElementById('cursorGlow');
+const hasFinePointer = window.matchMedia('(pointer: fine)').matches;
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (cursorGlow && hasFinePointer && !prefersReducedMotion) {
+  let targetX = window.innerWidth / 2, targetY = window.innerHeight / 2;
+  let curX = targetX, curY = targetY;
+  window.addEventListener('mousemove', (e) => { targetX = e.clientX; targetY = e.clientY; });
+  (function followCursor(){
+    curX += (targetX - curX) * 0.08;
+    curY += (targetY - curY) * 0.08;
+    cursorGlow.style.transform = `translate3d(${curX}px, ${curY}px, 0) translate(-50%,-50%)`;
+    requestAnimationFrame(followCursor);
+  })();
+  cursorGlow.classList.add('active');
+
+  const colorObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        document.documentElement.style.setProperty('--cursor-color', 'var(--' + entry.target.dataset.accent + ')');
+      }
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('[data-accent]').forEach(s => colorObserver.observe(s));
+}
+
+// Pills : aller à la carte correspondante et la mettre en évidence
+document.querySelectorAll('.pill').forEach(pill => {
+  pill.addEventListener('click', (e) => {
+    e.preventDefault();
+    const target = document.querySelector(pill.dataset.target);
+    if (!target) return;
+    target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    target.classList.add('pulse');
+    setTimeout(() => target.classList.remove('pulse'), 1200);
+  });
+});
+
+/* ===================== DEVIS (panier de services) ===================== */
+const devisMap = new Map();
+const fabBadge = document.getElementById('fabBadge');
+const devisListEl = document.getElementById('devisList');
+const devisTotalEl = document.getElementById('devisTotal');
+const devisPanel = document.getElementById('devisPanel');
+const devisOverlay = document.getElementById('devisOverlay');
+
+function parsePrice(text){
+  if (/devis/i.test(text)) return null;
+  const m = text.match(/(\d+(?:[.,]\d+)?)/);
+  return m ? parseFloat(m[1].replace(',', '.')) : null;
+}
+
+function toggleCard(id, btn, add){
+  if (add) {
+    btn.classList.add('active'); btn.setAttribute('aria-pressed', 'true');
+    btn.querySelector('.lbl').textContent = t('added');
+    btn.querySelector('svg').setAttribute('data-feather', 'check');
+  } else {
+    btn.classList.remove('active'); btn.setAttribute('aria-pressed', 'false');
+    btn.querySelector('.lbl').textContent = t('add');
+    btn.querySelector('svg').setAttribute('data-feather', 'plus');
+  }
+}
+
+function renderDevis(){
+  const items = Array.from(devisMap.entries());
+  fabBadge.textContent = items.length;
+  fabBadge.classList.toggle('zero', items.length === 0);
+
+  devisListEl.innerHTML = items.length === 0
+    ? `<p class="devis-empty">${t('cartEmpty')}</p>`
+    : items.map(([id, it]) => `
+      <div class="devis-item">
+        <span class="dot" style="background:var(--${it.accent})"></span>
+        <div class="info"><h4>${it.title}</h4><p>${it.deptLabel} · ${it.priceText}</p></div>
+        <button data-remove="${id}" aria-label="${t('removeItem')}"><svg data-feather="x"></svg></button>
+      </div>`).join('');
+
+  const numeric = items.filter(([,it]) => it.priceValue !== null);
+  const nonNumericCount = items.length - numeric.length;
+  const total = numeric.reduce((s,[,it]) => s + it.priceValue, 0);
+
+  let html = `<div class="row"><span>${itemsSelectedLabel(items.length)}</span></div>`;
+  html += `<div class="row grand"><span>${t('total')}</span><span>${total} $</span></div>`;
+  if (nonNumericCount > 0) html += `<small>${customNoteLabel(nonNumericCount)}</small>`;
+  html += `<small>${t('indicativeNote')}</small>`;
+  devisTotalEl.innerHTML = html;
+
+  feather.replace({ 'stroke-width': 1.75 });
+  devisListEl.querySelectorAll('[data-remove]').forEach(b => b.addEventListener('click', () => {
+    const id = b.dataset.remove;
+    devisMap.delete(id);
+    const cardBtn = document.querySelector('#' + id + ' .add-btn');
+    if (cardBtn) toggleCard(id, cardBtn, false);
+    feather.replace({ 'stroke-width': 1.75 });
+    renderDevis();
+  }));
+}
+
+document.querySelectorAll('.add-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const card = btn.closest('.service-card');
+    const id = card.id;
+    if (devisMap.has(id)) {
+      devisMap.delete(id);
+      toggleCard(id, btn, false);
+    } else {
+      const title = card.querySelector('h3').textContent;
+      const priceText = card.querySelector('.price').textContent;
+      const accent = btn.dataset.accent;
+      const deptSection = card.closest('.dept');
+      const deptLabel = deptSection ? deptSection.dataset.deptLabel : '';
+      devisMap.set(id, { title, priceText, priceValue: parsePrice(priceText), accent, deptLabel });
+      toggleCard(id, btn, true);
+    }
+    feather.replace({ 'stroke-width': 1.75 });
+    renderDevis();
+  });
+});
+
+function openDevis(){ devisPanel.classList.add('open'); devisOverlay.classList.add('open'); }
+function closeDevis(){ devisPanel.classList.remove('open'); devisOverlay.classList.remove('open'); }
+document.getElementById('fabDevis').addEventListener('click', openDevis);
+document.getElementById('devisClose').addEventListener('click', closeDevis);
+devisOverlay.addEventListener('click', closeDevis);
+
+document.getElementById('devisSend').addEventListener('click', () => {
+  const items = Array.from(devisMap.values());
+  if (items.length) {
+    let recap = t('recapHeader') + '\n';
+    items.forEach(it => recap += `• ${it.title} (${it.deptLabel}) — ${it.priceText}\n`);
+    const numeric = items.filter(it => it.priceValue !== null);
+    const total = numeric.reduce((s,it) => s + it.priceValue, 0);
+    recap += `\n${t('recapTotal')} : ${total} $`;
+    if (items.length > numeric.length) recap += t('recapCustom');
+    document.getElementById('message').value = recap;
+    const distinctDepts = new Set(items.map(it => it.deptLabel));
+    document.getElementById('service').value = distinctDepts.size === 1
+      ? Array.from(distinctDepts)[0]
+      : "Plusieurs domaines / je ne sais pas encore";
+  }
+  closeDevis();
+  document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+  document.getElementById('nom').focus({ preventScroll: true });
+});
+
+// Formulaire de contact (UI uniquement — pas d'envoi réel pour le moment)
+const contactForm = document.getElementById('contactForm');
+const formSuccess = document.getElementById('formSuccess');
+contactForm.addEventListener('submit', (e) => { e.preventDefault(); formSuccess.classList.add('show'); });
+</script>
+</body>
+</html>
