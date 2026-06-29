@@ -230,6 +230,8 @@ nav.main-nav a:hover::after{width:100%;}
 .dept-head h2{font-size:var(--fs-h2); margin-bottom:.8rem; display:flex; align-items:center; gap:.6rem;}
 .dept-head h2 svg{width:.8em; height:.8em; color:var(--accent);}
 .dept-head .intro p{color:var(--text-soft); font-size:1.02rem;}
+.pdf-link{margin-top:1.3rem; font-size:.85rem; padding:.7em 1.3em;}
+.pdf-link svg{width:15px; height:15px;}
 .dept-art{display:grid; place-items:center; color:var(--accent);}
 .dept-art-svg{width:100%; max-width:300px;}
 
@@ -498,6 +500,7 @@ footer{padding-block:var(--sp-4); border-top:1px solid var(--border);}
         <p class="eyebrow" data-i18n="dept-eyebrow">Expertise</p>
         <h2><svg data-feather="pen-tool"></svg><span data-i18n="nav-design">Design graphique</span></h2>
         <p data-i18n="intro-dg">Une identité visuelle cohérente, du logo au plus petit support de communication. Chaque élément est pensé pour rester reconnaissable, qu'il soit imprimé ou affiché à l'écran.</p>
+        <a class="btn btn-ghost pdf-link" target="_blank" rel="noopener" data-pdf-fr="design-graphique-fr.pdf" data-pdf-en="design-graphique-en.pdf" href="design-graphique-fr.pdf"><svg data-feather="download"></svg> <span data-i18n="pdf-link">Télécharger la grille tarifaire (PDF)</span></a>
       </div>
       <div class="dept-art reveal" aria-hidden="true">
         <svg class="dept-art-svg" viewBox="0 0 280 280">
@@ -581,6 +584,7 @@ footer{padding-block:var(--sp-4); border-top:1px solid var(--border);}
         <p class="eyebrow" data-i18n="dept-eyebrow">Expertise</p>
         <h2><svg data-feather="globe"></svg><span data-i18n="nav-web">Conception web</span></h2>
         <p data-i18n="intro-wd">Un site qui charge vite, se comprend en un coup d'œil et convertit. De la vitrine institutionnelle à la boutique en ligne, chaque page est construite pour son audience.</p>
+        <a class="btn btn-ghost pdf-link" target="_blank" rel="noopener" data-pdf-fr="conception-web-fr.pdf" data-pdf-en="conception-web-en.pdf" href="conception-web-fr.pdf"><svg data-feather="download"></svg> <span data-i18n="pdf-link">Télécharger la grille tarifaire (PDF)</span></a>
       </div>
       <div class="dept-art reveal" aria-hidden="true">
         <svg class="dept-art-svg" viewBox="0 0 280 280">
@@ -669,6 +673,7 @@ footer{padding-block:var(--sp-4); border-top:1px solid var(--border);}
         <p class="eyebrow" data-i18n="dept-eyebrow">Expertise</p>
         <h2><svg data-feather="cpu"></svg><span data-i18n="nav-apps">Conception d'applications</span></h2>
         <p data-i18n="intro-app">Des applications mobiles, web ou de bureau construites sur des bases solides — du prototype testable au produit maintenu sur la durée.</p>
+        <a class="btn btn-ghost pdf-link" target="_blank" rel="noopener" data-pdf-fr="applications-fr.pdf" data-pdf-en="applications-en.pdf" href="applications-fr.pdf"><svg data-feather="download"></svg> <span data-i18n="pdf-link">Télécharger la grille tarifaire (PDF)</span></a>
       </div>
       <div class="dept-art reveal" aria-hidden="true">
         <svg class="dept-art-svg" viewBox="0 0 280 280">
@@ -741,6 +746,7 @@ footer{padding-block:var(--sp-4); border-top:1px solid var(--border);}
         <p class="eyebrow" data-i18n="dept-eyebrow">Expertise</p>
         <h2><svg data-feather="wifi"></svg><span data-i18n="nav-telecom">Télécommunication</span></h2>
         <p data-i18n="intro-tc">Des réseaux fiables et sécurisés : câblage, téléphonie, connectivité et infrastructure, installés et documentés pour durer.</p>
+        <a class="btn btn-ghost pdf-link" target="_blank" rel="noopener" data-pdf-fr="telecommunication-fr.pdf" data-pdf-en="telecommunication-en.pdf" href="telecommunication-fr.pdf"><svg data-feather="download"></svg> <span data-i18n="pdf-link">Télécharger la grille tarifaire (PDF)</span></a>
       </div>
       <div class="dept-art reveal" aria-hidden="true">
         <svg class="dept-art-svg" viewBox="0 0 280 280">
@@ -819,6 +825,7 @@ footer{padding-block:var(--sp-4); border-top:1px solid var(--border);}
         <p class="eyebrow" data-i18n="dept-eyebrow">Expertise</p>
         <h2><svg data-feather="compass"></svg><span data-i18n="nav-gestion">Gestion de projet</span></h2>
         <p data-i18n="intro-gp">Un projet bien mené suit un cadre clair : objectifs définis, jalons suivis, risques anticipés et résultats mesurés — du cadrage initial au bilan final.</p>
+        <a class="btn btn-ghost pdf-link" target="_blank" rel="noopener" data-pdf-fr="gestion-projet-fr.pdf" data-pdf-en="gestion-projet-en.pdf" href="gestion-projet-fr.pdf"><svg data-feather="download"></svg> <span data-i18n="pdf-link">Télécharger la grille tarifaire (PDF)</span></a>
       </div>
       <div class="dept-art reveal" aria-hidden="true">
         <svg class="dept-art-svg" viewBox="0 0 280 280">
@@ -1035,6 +1042,7 @@ const I18N_EN = {
  "intro-app": "Mobile, web, or desktop applications built on solid foundations — from a testable prototype to a product maintained over time.",
  "intro-tc": "Reliable, secure networks: cabling, telephony, connectivity, and infrastructure, installed and documented to last.",
  "intro-gp": "A well-run project follows a clear framework: defined objectives, tracked milestones, anticipated risks, and measured results — from initial scoping to the final review.",
+ "pdf-link": "Download the price list (PDF)",
  "dg-1-t": "Brand guidelines &amp; visual identity",
  "dg-1-d": "Logo, palette, typefaces, and usage rules brought together in a single reference document.",
  "dg-1-p": "from $120",
@@ -1278,12 +1286,20 @@ function setLanguage(lang){
     const isActive = btn.classList.contains('active');
     btn.querySelector('.lbl').textContent = isActive ? t('added') : t('add');
   });
+  updatePdfLinks();
   renderDevis();
 }
 
 document.querySelectorAll('.lang-switch button').forEach(btn => {
   btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
 });
+
+function updatePdfLinks(){
+  document.querySelectorAll('.pdf-link').forEach(a => {
+    a.href = currentLang === 'en' ? a.dataset.pdfEn : a.dataset.pdfFr;
+  });
+}
+updatePdfLinks();
 
 feather.replace({ 'stroke-width': 1.75 });
 document.getElementById('year').textContent = new Date().getFullYear();
